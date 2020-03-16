@@ -2,7 +2,7 @@ import comparison_algorithm
 import helpers
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import RidgeCV
-from sklearn.linear_model import LassoCV
+from sklearn.linear_model import Lars
 from sklearn.linear_model import LassoLarsCV
 from sklearn.neural_network import MLPRegressor
 from sklearn.ensemble import RandomForestRegressor
@@ -316,6 +316,25 @@ def run_lassoLarsCV(single_time):
     else:
         save_folder += '10t'
         comparison_algorithm.training_test_10times_sklearnmodel(save_folder=save_folder, model=model)
+def run_Lars(single_time):
+    save_folder = 'Lars'
+    model = Lars()
+    if single_time:
+        comparison_algorithm.training_test_with_sklearnmodel(save_folder=save_folder, model=model)
+    else:
+        save_folder += '10t'
+        comparison_algorithm.training_test_10times_sklearnmodel(save_folder=save_folder, model=model)
+
+def run_LassoLars(single_time):
+    save_folder = 'LassoLars'
+    model = LassoLars(alpha=1.0)
+    if single_time:
+        comparison_algorithm.training_test_with_sklearnmodel(save_folder=save_folder, model=model)
+    else:
+        save_folder += '10t'
+        comparison_algorithm.training_test_10times_sklearnmodel(save_folder=save_folder, model=model)
+
+
 
 
 def run_MLPRegressor(single_time):
