@@ -515,7 +515,7 @@ def find_tv_balancebest_test(multi_paths, multi_names,parameters, target,save_pa
                         print('error random best size!')
 
                     if best_size == 0:
-                        index_population = [i for i in range(0, len(balance))]
+                        index_population = [i_tmp for i_tmp in range(0, len(balance))]
                         random_index = random.sample(index_population, size)
                         balance = balance[random_index]
                         test_values = test_values[random_index]
@@ -609,7 +609,7 @@ def find_tv_balancebest_test(multi_paths, multi_names,parameters, target,save_pa
                         print('error random best size!')
 
                     if best_size == 0:
-                        index_population = [i for i in range(0, len(balance))]
+                        index_population = [i_tmp for i_tmp in range(0, len(balance))]
                         random_index = random.sample(index_population, size)
                         balance = balance[random_index]
                         test_values = test_values[random_index]
@@ -643,6 +643,238 @@ def find_tv_balancebest_test(multi_paths, multi_names,parameters, target,save_pa
         writer = csv.writer(file)
         for row in doc:
             writer.writerow(row)
+
+def find_corresponding_model(multi_paths, multi_names,parameters, target,save_path, if_max,pt, pratios,random_size = 0, best_size = 0):
+    para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
+    doc_name = ['filename']
+    target_num = len(target)
+    for multi_name in multi_names:
+        doc_name.append(multi_name)
+    docs = []
+    for i_docs in range(target_num):
+        doc = [doc_name]
+        docs.append(doc)
+
+    train_files = []
+    for multi_path in multi_paths:
+        train_files.append(helpers.get_m_files(multi_path + 'train/', parameters))
+
+    if len(parameters) == 2:
+        readers1 = []
+        readers2 = []
+        for train_file in train_files:
+            readers1.append(csv.reader(train_file[0]))
+            readers2.append(csv.reader(train_file[1]))
+        train_datas1 = []
+        train_datas2 = []
+        for reader in zip(readers1,readers2):
+            train_datas1.append(list(reader[0]))
+            train_datas2.append(list(reader[1]))
+
+        fileLists = dictionaries.get_filelists()
+        t = 0
+        for i in range(len(fileLists)):
+            for j in range(1, len(fileLists[i]) - 1):
+                lines = []
+                for i_lines in range(target_num):
+                    lines.append([fileLists[i][j] + '_' + fileLists[i][j + 1]])
+
+                while train_datas1[0][t][0] != fileLists[i][j]:
+                    t += 1
+
+                for train_data1,train_data2, multi_path, multi_name in zip(train_datas1, train_datas2, multi_paths, multi_names):
+                    train_values1 = list(map(lambda x: float(x), train_data1[t][1:]))
+                    train_values2 = list(map(lambda x: float(x), train_data2[t][1:]))
+                    validation_file = pd.read_csv(multi_path + 'validation/' + fileLists[i][j] + '.csv', header=1,
+                                                  index_col=1)
+                    test_file = pd.read_csv(multi_path + 'test/' + fileLists[i][j + 1] + '.csv', header=1, index_col=1)
+
+                    validation_values1 = validation_file[para_name[parameters[0]]].values
+                    validation_values2 = validation_file[para_name[parameters[1]]].values
+                    train_values1 = np.array(train_values1)
+                    train_values2 = np.array(train_values2)
+
+                    standard_validation_values1 = minmaxScaler(validation_values1)
+                    standard_validation_values2 = minmaxScaler(validation_values2)
+
+                    standard_train_values1 = minmaxScaler(train_values1)
+                    standard_train_values2 = minmaxScaler(train_values2)
+
+                    if parameters[0] == 0:
+                        validation_values = pratios[0] * standard_validation_values1 - pratios[1] * standard_validation_values2
+                        train_values = pratios[0] * standard_train_values1 - pratios[1] * standard_train_values2
+                    else:
+                        print('error parameters!!!')
+
+                    balance = pt * train_values + (1 - pt) * validation_values
+                    test_values = []
+                    for i_target in target:
+                        test_values.append(test_file[para_name[i_target]].values)
+                    if random_size > 1 and best_size == 0:
+                        size = min(random_size, len(balance))
+
+                    elif best_size == 0 and random_size > 0:
+                        size = int(random_size * len(balance))
+                    elif best_size > 1 and random_size == 0:
+                        size = min(best_size, len(balance))
+                    elif best_size > 0 and random_size == 0:
+                        size = int(best_size * len(balance))
+                    else:
+                        print('error random best size!')
+
+                    if best_size == 0:
+                        index_population = [i_tmp for i_tmp in range(0, len(balance))]
+                        random_index = random.sample(index_population, size)
+                        balance = balance[random_index]
+                        new_test_values = []
+                        for test_value in test_values:
+                            new_test_values.append(test_value[random_index])
+
+                        if if_max:
+                            b_index = np.argmax(balance)
+                        else:
+                            b_index = np.argmin(balance)
+                        for line, new_test_value in zip(lines, new_test_values):
+                            line.append(new_test_value[b_index])
+                    else:
+                        new_balance = []
+                        new_tests  = []
+                        for i_ntests in range(target_num):
+                            new_tests.append([])
+                        for choose in range(size):
+                            if if_max:
+                                choose_index = np.argmax(balance)
+                            else:
+                                choose_index = np.argmin(balance)
+
+
+                            new_balance.append(balance[choose_index])
+                            balance = np.delete(balance, choose_index)
+                            for test_value, new_test in zip(test_values, new_tests):
+                                new_test.append(test_value[choose_index])
+                                test_value = np.delete(test_value, choose_index)
+                        for line, new_test in zip(lines, new_tests):
+                            line.append(random.choice(new_test))
+                for doc, line in zip(docs, lines):
+                    doc.append(line.copy())
+    elif len(parameters) == 3:
+        readers1 = []
+        readers2 = []
+        readers3 = []
+        for train_file in train_files:
+            readers1.append(csv.reader(train_file[0]))
+            readers2.append(csv.reader(train_file[1]))
+            readers3.append(csv.reader(train_file[2]))
+        train_datas1 = []
+        train_datas2 = []
+        train_datas3 = []
+        for reader in zip(readers1,readers2,readers3):
+            train_datas1.append(list(reader[0]))
+            train_datas2.append(list(reader[1]))
+            train_datas3.append(list(reader[2]))
+        fileLists = dictionaries.get_filelists()
+        t = 0
+        for i in range(len(fileLists)):
+            for j in range(1, len(fileLists[i]) - 1):
+                lines = []
+                for i_lines in range(target_num):
+                    lines.append([fileLists[i][j] + '_' + fileLists[i][j + 1]])
+
+                while train_datas1[0][t][0] != fileLists[i][j]:
+                    t += 1
+
+                for train_data1, train_data2,train_data3, multi_path, multi_name in zip(train_datas1, train_datas2, train_datas3, multi_paths,
+                                                                            multi_names):
+                    train_values1 = list(map(lambda x: float(x), train_data1[t][1:]))
+                    train_values2 = list(map(lambda x: float(x), train_data2[t][1:]))
+                    train_values3 = list(map(lambda x: float(x), train_data3[t][1:]))
+                    validation_file = pd.read_csv(multi_path + 'validation/' + fileLists[i][j] + '.csv', header=1,
+                                                  index_col=1)
+                    test_file = pd.read_csv(multi_path + 'test/' + fileLists[i][j + 1] + '.csv', header=1, index_col=1)
+
+                    validation_values1 = validation_file[para_name[parameters[0]]].values
+                    validation_values2 = validation_file[para_name[parameters[1]]].values
+                    validation_values3 = validation_file[para_name[parameters[2]]].values
+                    train_values1 = np.array(train_values1)
+                    train_values2 = np.array(train_values2)
+                    train_values3 = np.array(train_values3)
+
+                    standard_validation_values1 = minmaxScaler(validation_values1)
+                    standard_validation_values2 = minmaxScaler(validation_values2)
+                    standard_validation_values3 = minmaxScaler(validation_values3)
+                    standard_train_values1 = minmaxScaler(train_values1)
+                    standard_train_values2 = minmaxScaler(train_values2)
+                    standard_train_values3 = minmaxScaler(train_values3)
+                    if parameters[0] == 0:
+                        validation_values = pratios[0] * standard_validation_values1 - pratios[1] * standard_validation_values2 - pratios[2] * standard_validation_values3
+
+                        train_values = pratios[0] * standard_train_values1 - pratios[1] * standard_train_values2 - pratios[2] * standard_train_values3[2]
+                    else:
+                        print('error parameters!!!!')
+                    balance = pt * train_values + (1 - pt) * validation_values
+                    test_values = []
+                    for i_target in target:
+                        test_values.append(test_file[para_name[i_target]].values)
+
+                    if random_size > 1 and best_size == 0:
+                        size = min(random_size, len(balance))
+
+                    elif best_size == 0 and random_size > 0:
+                        size = int(random_size * len(balance))
+                    elif best_size > 1 and random_size == 0:
+                        size = min(best_size, len(balance))
+                    elif best_size > 0 and random_size == 0:
+                        size = int(best_size * len(balance))
+                    else:
+                        print('error random best size!')
+
+                    if best_size == 0:
+                        index_population = [i_tmp for i_tmp in range(0, len(balance))]
+                        random_index = random.sample(index_population, size)
+                        print(balance, random_index)
+                        balance = balance[random_index]
+                        print('attention!!!!!!')
+                        print(test_values, random_index)
+                        new_test_values = []
+                        for test_value in test_values:
+                            print('\n\n', test_value, random_index)
+                            new_test_values.append(test_value[random_index])
+
+                        if if_max:
+                            b_index = np.argmax(balance)
+                        else:
+                            b_index = np.argmin(balance)
+                        for line, new_test_value in zip(lines, new_test_values):
+                            line.append(new_test_value[b_index])
+                    else:
+                        new_balance = []
+                        new_tests = []
+                        for i_ntests in range(target_num):
+                            new_tests.append([])
+                        for choose in range(size):
+                            if if_max:
+                                choose_index = np.argmax(balance)
+                            else:
+                                choose_index = np.argmin(balance)
+
+                            new_balance.append(balance[choose_index])
+                            balance = np.delete(balance, choose_index)
+                            for test_value, new_test in zip(test_values, new_tests):
+                                new_test.extend(test_value[choose_index])
+                                test_value = np.delete(test_value, choose_index)
+                        for line, new_test in zip(lines, new_tests):
+                            line.append(random.choice(new_test))
+                for doc, line in zip(docs, lines):
+                    doc.append(line.copy())
+    else:
+        print('error target num', len(parameters))
+
+    for doc, i_target in zip(docs, target):
+        save_file = 'choosemodel_' + para_name[i_target]
+        with open(save_path + save_file + '.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            for row in doc:
+                writer.writerow(row)
 
 def find_validation_trainbest_test(multi_paths, multi_names,parameters, target,save_path, if_max, pratios, best_size = 0):
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
@@ -1235,6 +1467,28 @@ def make_validation_trainbest_test(moea_list, op_targets,parameters, target, if_
     save_path = '../results/tables/'
     find_validation_trainbest_test(multi_paths=multi_paths, multi_names=multi_names, parameters=parameters,target=target, save_path=save_path,
                           if_max=if_max, pratios=pratios, best_size = best_size)
+def choose_model(moea_list, op_targets,parameters, target, if_max, train_ratio, pratios, random_size = 0, best_size = 0):
+    moea_names = []
+    for moea in moea_list:
+        moea_names.append(dictionaries.get_model_method_name(moea[0]) + '/' + dictionaries.get_moea_name(moea[1]))
+    op_target_names = []
+    for op_target in op_targets:
+        op_target_names.append(dictionaries.get_target_composition(op_target))
+    multi_paths = []
+    multi_names = []
+    for moea_name in moea_names:
+        for op_target_name in op_target_names:
+            multi_paths.append('../results/split-train/' + moea_name + '/' + op_target_name + '/')
+            if type == 1:
+                write_algorithm = moea_name.replace('nsga2_toZero', 'multi-objective-revised')
+                write_algorithm = write_algorithm.replace('nsga2', 'multi-objective')
+            else:
+                write_algorithm = moea_name
+            write_target = op_target_name.replace('nonz', 'NNZ')
+            multi_names.append(write_algorithm + '/' + write_target)
+    save_path = '../results/tables/'
+    find_corresponding_model(multi_paths=multi_paths, multi_names=multi_names, parameters=parameters,target=target, save_path=save_path,
+                          if_max=if_max, pt=train_ratio, pratios=pratios, random_size=random_size, best_size = best_size)
 '''
 =========================================================================================================================================
 '''
