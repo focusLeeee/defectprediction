@@ -127,4 +127,45 @@ make_tables.choose_model(moea_list = [[6, 13], [5, 14]], op_targets =[[0, 3, 4]]
 make_tables.choose_model(moea_list = [[6, 13], [5, 14]], op_targets =[[0, 3, 4]], parameters = [0, 3, 4], target = [0, 4], if_max = True, train_ratio = 0.8,pratios=[1,1,1], random_size = 0.2)
 
 
-make_tables.choose_model(moea_list = [[6, 13], [5, 14]], op_targets = [[0, 3, 4]], parameters = [0, 3, 4], tar)
+#====================================================0321=================================================
+#=============================================================================================================
+#============================================================================================================
+#===================绘制0321不同算法对fpa+mse/fpa+nnz对比/
+
+
+#------------------------------------linear/fpa+mse+l1/三种random的对比
+#----------------fpa/mse对比
+plotting.plotting_mix_ssmm_train(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 3, 4]], target=[0,4],color = False)
+plotting.plotting_mix_ssmm_test(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 3, 4]], target=[0,4], color = False)
+#fpa/nnz对比
+plotting.plotting_mix_ssmm_train(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 3, 4]], target=[0,2], color = False)
+plotting.plotting_mix_ssmm_test(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 3, 4]], target=[0,2], color = False)
+
+
+#------------------------------------linear/fpa+mse+nnz/三种random的对比
+#----------------fpa/mse对比
+plotting.plotting_mix_ssmm_train(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2, 4]], target=[0,4],color = False)
+plotting.plotting_mix_ssmm_test(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2, 4]], target=[0,4], color = False)
+#fpa/nnz对比
+plotting.plotting_mix_ssmm_train(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2, 4]], target=[0,2], color = False)
+plotting.plotting_mix_ssmm_test(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2, 4]], target=[0,2], color = False)
+
+#------------------------------------linear/fpa+mse/三种random的对比
+#----------------fpa/mse对比
+plotting.plotting_mix_ssmm_train(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 4]], target=[0,4],color = False)
+plotting.plotting_mix_ssmm_test(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 4]], target=[0,4], color = False)
+#fpa/nnz对比
+plotting.plotting_mix_ssmm_train(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 4]], target=[0,2], color = False)
+plotting.plotting_mix_ssmm_test(moea_list = [[1, 12], [1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 4]], target=[0,2], color = False)
+
+
+#-------linear/fpa+mse+l1/random20p,linear/fpa+mse+l1/random30p,
+#----------------fpa/mse对比
+plotting.plotting_mix_ssmm_train(moea_list = [[1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2,4], [0, 3, 4]], target=[0,4],color = False)
+plotting.plotting_mix_ssmm_test(moea_list = [[1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2,4], [0, 3, 4]], target=[0,4], color = False)
+#fpa/nnz对比
+plotting.plotting_mix_ssmm_train(moea_list = [[1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2,4], [0, 3, 4]], target=[0,2], color = False)
+plotting.plotting_mix_ssmm_test(moea_list = [[1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2,4], [0, 3, 4]], target=[0,2], color = False)
+
+#-----------------------------从非支配集中选取值
+make_tables.make_btrain_test(moea_list = [[1, 13], [1, 14]], op_targets = [[0, 3, 4], [0, 2, 4], [0, 4]], target = 0, if_max = True)
