@@ -167,5 +167,34 @@ plotting.plotting_mix_ssmm_test(moea_list = [[1, 13], [1, 14]], sklearn_list = [
 plotting.plotting_mix_ssmm_train(moea_list = [[1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2,4], [0, 3, 4]], target=[0,2], color = False)
 plotting.plotting_mix_ssmm_test(moea_list = [[1, 13], [1, 14]], sklearn_list = [2, 4], soea_list = [], op_targets=[[0, 2,4], [0, 3, 4]], target=[0,2], color = False)
 
-#-----------------------------从非支配集中选取值
+#-----------------------------从非支配集中选取train最优的值
 make_tables.make_btrain_test(moea_list = [[1, 13], [1, 14]], op_targets = [[0, 3, 4], [0, 2, 4], [0, 4]], target = 0, if_max = True)
+make_tables.make_btrain_test(moea_list = [[1, 9], [1, 10], [1, 11]], op_targets = [[0, 3, 4],[0, 2], [0, 3], [0, 4], [0, 2, 4], [0, 4], [0, 1], [0, 1, 2]], target = 0, if_max = True)
+
+
+#-----------------------------运行一下FPA+NNZ的三个random，运行一下FPA+L1的三个random
+training.run_msdp_train(moea = 12, targets = [0, 2], predict_model = 1)
+training.run_msdp_train(moea = 13, targets = [0, 2], predict_model = 1)
+training.run_msdp_train(moea = 14, targets = [0, 2], predict_model = 1)
+
+training.run_msdp_train(moea = 12, targets = [0, 3], predict_model = 1)
+training.run_msdp_train(moea = 13, targets = [0, 3], predict_model = 1)
+training.run_msdp_train(moea = 14, targets = [0, 3], predict_model = 1)
+
+#---------------------------根据之前选取train最优的结果，选取几个模型进行对比
+# linear/nsga2_30p_toZero/FPA_NNZ; linear/nsga2_30p_toZero/FPA_NNZ_MSE; linear/nsga2_10p_toZero/FPA_NNZ_MSE; linear/fpa+mse+nnz/random30p.
+plotting.plotting_universal_test(moea_list = [[1, 11, [0, 2]], [1, 11, [0,3, 4]], [1, 9, [0, 2, 4]], [1, 14, [0, 3, 4]]], sklearn_list = [2,4], soea_list = [], target=[0,2], color = False)
+plotting.plotting_universal_train(moea_list =  [[1, 11, [0, 2]], [1, 11, [0,3, 4]], [1, 9, [0, 2, 4]], [1, 14, [0, 3, 4]]], sklearn_list = [2, 4], soea_list = [], target=[0,2], color = False)
+
+plotting.plotting_universal_test(moea_list = [[1, 11, [0, 2]], [1, 11, [0,3, 4]], [1, 9, [0, 2, 4]], [1, 14, [0, 3, 4]]], sklearn_list = [2,4], soea_list = [], target=[0,4], color = False)
+plotting.plotting_universal_train(moea_list =  [[1, 11, [0, 2]], [1, 11, [0,3, 4]], [1, 9, [0, 2, 4]], [1, 14, [0, 3, 4]]], sklearn_list = [2, 4], soea_list = [], target=[0,4], color = False)
+
+
+#---------------------------按照比例，以及引入随机来选取非支配解
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 3, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True, pratios=[1,0,0], random_size = 0.5, if_split = False)
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True, pratios=[8,4,1], random_size = 1， if_split = False)
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True,pratios=[1,1,1], random_size = 0.3, if_split = False)
+
+

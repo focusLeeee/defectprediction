@@ -1708,7 +1708,7 @@ def choose_model(moea_list, op_targets,parameters, target, if_max, train_ratio, 
                           if_max=if_max, pt = train_ratio, pratios=pratios, random_size=random_size, best_size = best_size)
     else:
         find_corresponding_model_withoutsplit(multi_paths=multi_paths, multi_names=multi_names, parameters=parameters,target=target, save_path=save_path,
-                          if_max=if_max, pratios=pratios, random_size=random_size, best_size = best_size))    
+                          if_max=if_max, pratios=pratios, random_size=random_size, best_size = best_size)   
 '''
 =========================================================================================================================================
 '''
