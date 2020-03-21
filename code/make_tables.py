@@ -1680,7 +1680,7 @@ def make_validation_trainbest_test(moea_list, op_targets,parameters, target, if_
     save_path = '../results/tables/'
     find_validation_trainbest_test(multi_paths=multi_paths, multi_names=multi_names, parameters=parameters,target=target, save_path=save_path,
                           if_max=if_max, pratios=pratios, best_size = best_size)
-def choose_model(moea_list, op_targets,parameters, target, if_max, train_ratio, pratios, random_size = 0, best_size = 0, if_split):
+def choose_model(moea_list, op_targets,parameters, target, if_max, train_ratio, pratios, if_split,random_size = 0, best_size = 0,):
     moea_names = []
     for moea in moea_list:
         moea_names.append(dictionaries.get_model_method_name(moea[0]) + '/' + dictionaries.get_moea_name(moea[1]))
