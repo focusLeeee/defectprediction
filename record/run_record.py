@@ -191,10 +191,10 @@ plotting.plotting_universal_train(moea_list =  [[1, 11, [0, 2]], [1, 11, [0,3, 4
 
 
 #---------------------------按照比例，以及引入随机来选取非支配解
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 3, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True, pratios=[1,0,0], random_size = 0.5, if_split = False)
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True, pratios=[8,4,1], random_size = 1， if_split = False)
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], target = [0,2, 4], if_max = True,pratios=[1,1,1], random_size = 0.3, if_split = False)
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 3, 4], [0, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True, pratios=[1,0,0], random_size = 0.5, if_split = False)
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], train_ratio = 1,target = [0,2, 4], if_max = True, pratios=[8,4,1], random_size = 1， if_split = False)
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], train_ratio = 1,target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], train_ratio = 1,target = [0,2, 4], if_max = True,pratios=[1,1,1], random_size = 0.3, if_split = False)
 
 

@@ -1021,7 +1021,7 @@ def find_corresponding_model_withoutsplit(multi_paths, multi_names,parameters, t
                     standard_train_values2 = minmaxScaler(train_values2)
                     standard_train_values3 = minmaxScaler(train_values3)
                     if parameters[0] == 0:
-                        train_values = pratios[0] * standard_train_values1 - pratios[1] * standard_train_values2 - pratios[2] * standard_train_values3[2]
+                        train_values = pratios[0] * standard_train_values1 - pratios[1] * standard_train_values2 - pratios[2] * standard_train_values3
                     else:
                         print('error parameters!!!!')
                     balance = train_values
