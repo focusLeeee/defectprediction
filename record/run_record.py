@@ -181,6 +181,14 @@ training.run_msdp_train(moea = 12, targets = [0, 3], predict_model = 1)
 training.run_msdp_train(moea = 13, targets = [0, 3], predict_model = 1)
 training.run_msdp_train(moea = 14, targets = [0, 3], predict_model = 1)
 
+
+test.run_msdp_test(method = 1, moea = 12, target = [0, 2])
+test.run_msdp_test(method = 1, moea = 13, target = [0, 2])
+test.run_msdp_test(method = 1, moea = 14, target = [0, 2])
+
+test.run_msdp_test(method = 1, moea = 12, target = [0, 3])
+test.run_msdp_test(method = 1, moea = 13, target = [0, 3])
+test.run_msdp_test(method = 1, moea = 14, target = [0, 3])
 #---------------------------根据之前选取train最优的结果，选取几个模型进行对比
 # linear/nsga2_30p_toZero/FPA_NNZ; linear/nsga2_30p_toZero/FPA_NNZ_MSE; linear/nsga2_10p_toZero/FPA_NNZ_MSE; linear/fpa+mse+nnz/random30p.
 plotting.plotting_universal_test(moea_list = [[1, 11, [0, 2]], [1, 11, [0,3, 4]], [1, 9, [0, 2, 4]], [1, 14, [0, 3, 4]]], sklearn_list = [2,4], soea_list = [], target=[0,2], color = False)
@@ -191,10 +199,54 @@ plotting.plotting_universal_train(moea_list =  [[1, 11, [0, 2]], [1, 11, [0,3, 4
 
 
 #---------------------------按照比例，以及引入随机来选取非支配解
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 3, 4], [0, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True, pratios=[1,0,0], random_size = 0.5, if_split = False)
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], train_ratio = 1,target = [0,2, 4], if_max = True, pratios=[8,4,1], random_size = 1， if_split = False)
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], train_ratio = 1,target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
-make_tables.choose_model(moea_list = [[1, 13], [1, 14]], op_targets =[[0, 3, 4], [0, 2, 4], [0, 4]], parameters = [0, 3, 4], train_ratio = 1,target = [0,2, 4], if_max = True,pratios=[1,1,1], random_size = 0.3, if_split = False)
+#-------------------------首先选fpa最好的
+make_tables.choose_model(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], op_targets =[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], op_targets =[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 3, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,0,0], random_size = 1, if_split = False)
+
+#-------------------------最优的测试fpa是多少
+make_tables.ssmm_table_test(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], sklearn_list =[], soea_list = [], op_targets=[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 3, 4]] , target = 0, if_max = True, if_split = False)
+make_tables.ssmm_table_test(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], sklearn_list =[2, 4], soea_list = [], op_targets=[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]] , target = 0, if_max = True, if_split = False)
+
+#---------------------------1:1:1-034
+make_tables.choose_model(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], op_targets =[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,1,1], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], op_targets =[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 3, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,1,1], random_size = 1, if_split = False)
+
+#---------------------------1:1:1-024
+make_tables.choose_model(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], op_targets =[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]], parameters = [0, 2, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,1,1], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], op_targets =[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 2, 4]], parameters = [0, 2, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,1,1], random_size = 1, if_split = False)
+
+#--------------------------2:2:1-024
+make_tables.choose_model(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], op_targets =[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]], parameters = [0, 2, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[2,2,1], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], op_targets =[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 2, 4]], parameters = [0, 2, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[2,2,1], random_size = 1, if_split = False)
+
+#--------------------------2:2:1-034
+
+make_tables.choose_model(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], op_targets =[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[2,2,1], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], op_targets =[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 2, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[2,2,1], random_size = 1, if_split = False)
+
+#-------------------------4:2:1-024
+make_tables.choose_model(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], op_targets =[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]], parameters = [0, 2, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[4,2,1], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], op_targets =[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 2, 4]], parameters = [0, 2, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[4,2,1], random_size = 1, if_split = False)
+
+#-------------------------4:2:1-034
+make_tables.choose_model(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], op_targets =[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[4,2,1], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], op_targets =[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 2, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[4,2,1], random_size = 1, if_split = False)
+
+#-------------------------1:1:0-024
+make_tables.choose_model(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], op_targets =[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]], parameters = [0, 2, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,1,0], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], op_targets =[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 2, 4]], parameters = [0, 2, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,1,0], random_size = 1, if_split = False)
+
+#-------------------------1:1:0-034
+make_tables.choose_model(moea_list = [[1, 3], [1, 12],[1, 13], [1, 14]], op_targets =[[0, 2], [0, 3], [0, 4], [0, 3, 4], [0, 2, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,1,0], random_size = 1, if_split = False)
+make_tables.choose_model(moea_list = [[1, 1], [1, 9],[1, 10], [1, 11]], op_targets =[[0, 1], [0, 2], [0, 3], [0, 4], [0, 1, 2],[0, 1, 3], [0, 2, 4], [0, 3, 4]], parameters = [0, 3, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[1,1,0], random_size = 1, if_split = False)
 
 
+#-----------------------------绘图：绘制linear/nsga2_random20p_toZero/FPA_NNZ_MSE；linear/nsga2_random30p_toZero/FPA_L1_MSE
+#ridge；lasso对比
+#--------------------fpa+mse
+plotting.plotting_universal_test(moea_list = [[1, 13, [0, 2, 4]], [1, 14, [0, 3, 4]],], sklearn_list = [2, 4], soea_list = [], target=[0,4], color = False)
+plotting.plotting_universal_train(moea_list = [[1, 13, [0, 2, 4]], [1, 14, [0, 3, 4]],], sklearn_list = [2, 4], soea_list = [], target=[0,4], color = False)
+
+#-------------------fpa+nnz
+plotting.plotting_universal_test(moea_list = [[1, 13, [0, 2, 4]], [1, 14, [0, 3, 4]],], sklearn_list = [2, 4], soea_list = [], target=[0,2], color = False)
+plotting.plotting_universal_train(moea_list = [[1, 13, [0, 2, 4]], [1, 14, [0, 3, 4]],], sklearn_list = [2, 4], soea_list = [], target=[0,2], color = False)
