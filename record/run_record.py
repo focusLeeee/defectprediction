@@ -250,3 +250,13 @@ plotting.plotting_universal_train(moea_list = [[1, 13, [0, 2, 4]], [1, 14, [0, 3
 #-------------------fpa+nnz
 plotting.plotting_universal_test(moea_list = [[1, 13, [0, 2, 4]], [1, 14, [0, 3, 4]],], sklearn_list = [2, 4], soea_list = [], target=[0,2], color = False)
 plotting.plotting_universal_train(moea_list = [[1, 13, [0, 2, 4]], [1, 14, [0, 3, 4]],], sklearn_list = [2, 4], soea_list = [], target=[0,2], color = False)
+
+
+
+#======================================================================
+#-=====================================================================
+#=========================0329绘图=====================================
+
+#=============绘制nsga2-20p-toZero/FPA+MSE+NNZ/linear与nsga2-30p-toZero/FPA+MSE+NNZ与linear/CoDE对比
+plotting.plotting_universal_test(moea_list = [[1, 13, [0, 2, 4]], [1, 14, [0, 3, 4]],], sklearn_list = [2, 4], soea_list = [], target=[0,4],if_line = True, line_list = [[1, 1]], color = False)
+plotting.plotting_universal_train(moea_list = [[1, 13, [0, 2, 4]], [1, 14, [0, 3, 4]],], sklearn_list = [2, 4], soea_list = [], target=[0,4], if_line = True, line_list = [[1, 1]], color = False)
