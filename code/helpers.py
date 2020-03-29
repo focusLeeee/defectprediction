@@ -1766,7 +1766,7 @@ def combine_difmarker_line_train(single_paths, multi_paths, line_paths, paramete
 
         if len(multi_files) == 0:
             fileLists = dictionaries.get_filelists()
-            plt.figure(8 * columns, 4 * rows)
+            plt.figure(figsize=(8 * columns, 4 * rows))
             fig_number = 0
 
             for i in range(len(fileLists)):
@@ -1825,7 +1825,7 @@ def combine_difmarker_line_train(single_paths, multi_paths, line_paths, paramete
             for reader in zip(readers1, readers2):
                 mdatas1.append(list(reader[0]))
                 mdatas2.append(list(reader[1]))
-            plt.figure(8 * columns, 4 * rows)
+            plt.figure(figsize=(8 * columns, 4 * rows))
             fig_number = 0
             for i in range(len(mdatas1[0])):
                 multi_marker = 0
@@ -1912,7 +1912,7 @@ def combine_difmarker_line_test(single_paths, multi_paths,line_paths, parameters
 
     # single_file = pd.read_csv(single_path + 'doc5.csv', header=0, index_col=0)
     fileLists = dictionaries.get_filelists()
-    plt.figure()
+    plt.figure(figsize=(8 * columns, 4 * rows))
     fig_number = 0
     for i in range(len(fileLists)):
         for j in range(2, len(fileLists[i])):
