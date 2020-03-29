@@ -206,7 +206,7 @@ def plotting_mix_ssmm_test(moea_list, sklearn_list, soea_list, op_targets, targe
 
 # 多目标优化算法直接指定
 # moea_list = [[a, b, [c, d]]]--->a是模型，b是优化算法，[c,d]是优化目标
-def plotting_universal_train(moea_list, sklearn_list, soea_list, target, color = True, type = 2, if_show_label = True, save_folder = 'universal'):
+def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2, if_show_label = True, save_folder = 'universal', if_line = False):
     multi_names = []
     multi_paths = []
 
@@ -237,19 +237,31 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, color =
     for soea_name in soea_names:
         single_paths.append('../results/single-objective/' + soea_name  + '/train/')
     single_names = sklearn_names +soea_names
+
+    line_names = []
+    for line in line_list:
+        line_names.append(dictionaries.get_model_method_name(line[0]) + '/' + dictionaries.get_soea_name(line[1]))
+    line_paths = []
+    for line_name in line_names:
+        line_paths.append('../results/single-objective/' + line_name + '/train/')
+
     target_name = dictionaries.get_target_composition(target)
     save_path = '../results/plotting/' + save_folder+'/' + target_name + '/train/'
     print(multi_names, multi_paths)
     print(single_names, single_paths)
-    if color:
-        helpers.comparison_difcolor_ssmm_train(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
-                                  single_names=single_names, multi_names=multi_names, save_path=save_path)
-    else:
-        helpers.comparison_difmarker_ssmm_train(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
-                                  single_names=single_names, multi_names=multi_names, save_path=save_path, if_show_label=if_show_label)
+    if if_line:
+        helpers.comparison_difmarker_line_train(single_paths=single_paths, multi_paths=multi_paths, line_paths = line_paths, parameters=target,
+                                      single_names=single_names, multi_names=multi_names, line_names = line_names, save_path=save_path)
+    else :
+        if color:
+            helpers.comparison_difcolor_ssmm_train(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
+                                      single_names=single_names, multi_names=multi_names, save_path=save_path)
+        else:
+            helpers.comparison_difmarker_ssmm_train(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
+                                      single_names=single_names, multi_names=multi_names, save_path=save_path, if_show_label=if_show_label)
 
 
-def plotting_universal_test(moea_list, sklearn_list, soea_list, target, color = True, type = 2, if_show_label = True, save_folder = 'universal'):
+def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2, if_show_label = True, save_folder = 'universal', if_line = False):
     multi_names = []
     multi_paths = []
 
@@ -279,15 +291,28 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, color = 
         single_paths.append('../results/compared_algorithms/' + sklearn_name + '/test/')
     for soea_name in soea_names:
         single_paths.append('../results/single-objective/' + soea_name + '/test/')
+
+    line_names = []
+    for line in line_list:
+        line_names.append(dictionaries.get_model_method_name(line[0]) + '/' + dictionaries.get_soea_name(line[1]))
+    line_paths = []
+    for line_name in line_names:
+        line_paths.append('../results/single-objective/' + line_name + '/test/')
     single_names = sklearn_names + soea_names
     target_name = dictionaries.get_target_composition(target)
     save_path = '../results/plotting/' + save_folder +'/'+ target_name + '/test/'
-    if color:
-        helpers.comparison_difcolor_ssmm_test(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
-                                  single_names=single_names, multi_names=multi_names, save_path=save_path)
+    if if_line:
+        helpers.comparison_difmarker_line_test(single_paths=single_paths, multi_paths=multi_paths,
+                                               line_paths=line_paths, parameters=target,
+                                               single_names=single_names, multi_names=multi_names,
+                                               line_names=line_names, save_path=save_path)
     else:
-        helpers.comparison_difmarker_ssmm_test(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
-                                  single_names=single_names, multi_names=multi_names, save_path=save_path, if_show_label=if_show_label)
+        if color:
+            helpers.comparison_difcolor_ssmm_test(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
+                                      single_names=single_names, multi_names=multi_names, save_path=save_path)
+        else:
+            helpers.comparison_difmarker_ssmm_test(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
+                                      single_names=single_names, multi_names=multi_names, save_path=save_path, if_show_label=if_show_label)
 
 
 
