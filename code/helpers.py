@@ -1741,8 +1741,8 @@ def comparison_difmarker_line_test(single_paths, multi_paths,line_paths, paramet
             plt.savefig(save_path + fileLists[i][j - 1] + '_' + fileLists[i][j] + '.png')
             plt.close()
 
-def combine_difmarker_line_train(single_paths, multi_paths, line_paths, parameters, single_names, multi_names,
-                                    line_names, save_path, if_show_label=True, if_show_rtborder = True, rows = 11, columns = 3):
+def combine_difmarker_line_train(single_paths, multi_paths, line_paths, parameters, single_names, multi_names,rows, columns,
+                                    line_names, save_path, if_show_label=True, if_show_rtborder = True):
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
                   7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
@@ -1895,8 +1895,8 @@ def combine_difmarker_line_train(single_paths, multi_paths, line_paths, paramete
 '''
 
 
-def combine_difmarker_line_test(single_paths, multi_paths,line_paths, parameters, single_names, multi_names, line_names, save_path,
-                                   if_show_label=True, if_show_rtborder = True, rows = 5, columns = 3):
+def combine_difmarker_line_test(single_paths, multi_paths,line_paths, parameters, single_names, multi_names, line_names, save_path, rows, columns,
+                                   if_show_label=True, if_show_rtborder = True):
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
                   7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}

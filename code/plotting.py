@@ -206,7 +206,7 @@ def plotting_mix_ssmm_test(moea_list, sklearn_list, soea_list, op_targets, targe
 
 # 多目标优化算法直接指定
 # moea_list = [[a, b, [c, d]]]--->a是模型，b是优化算法，[c,d]是优化目标
-def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2, if_show_label = True, save_folder = 'universal', if_line = False, if_combine = False, if_show_rtborder = True, rows = 11, columns = 3):
+def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2, if_show_label = True, save_folder = 'universal', if_line = False, if_combine = False, if_show_rtborder = True, rows = 14, columns = 3):
     multi_names = []
     multi_paths = []
 
@@ -266,7 +266,7 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_li
                                       single_names=single_names, multi_names=multi_names, save_path=save_path, if_show_label=if_show_label)
 
 
-def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2, if_show_label = True, save_folder = 'universal', if_line = False, if_combine = False, if_show_rtborder = True, rows =5, columns = 3):
+def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2, if_show_label = True, save_folder = 'universal', if_line = False, if_combine = False, if_show_rtborder = True, rows =10, columns = 3):
     multi_names = []
     multi_paths = []
 
