@@ -1574,6 +1574,7 @@ def comparison_difmarker_line_train(single_paths, multi_paths, line_paths, param
                         plt.text(line_values[parameters[0]], max_y, ss_label, ha='right',va='top',fontdict={'size': 14, 'color':  'black'})
 
                     plt.title(fileLists[i][j] + '_' + fileLists[i][j], fontdict={'size': 14})
+                    ax = plt.axes()
                     ax.spines['top'].set_visible(False)
                     ax.spines['right'].set_visible(False)
                     if if_show_label:
@@ -1645,6 +1646,7 @@ def comparison_difmarker_line_train(single_paths, multi_paths, line_paths, param
                 plt.title(mdatas1[0][i][0] + '_' + mdatas1[0][i][0], fontdict={'size': 14})
                 if if_show_label:
                     plt.legend(prop={'size': 14})
+                ax = plt.axes()
                 ax.spines['top'].set_visible(False)
                 ax.spines['right'].set_visible(False)
                 plt.savefig(save_path + mdatas1[0][i][0] + '.png')
@@ -1727,6 +1729,7 @@ def comparison_difmarker_line_test(single_paths, multi_paths,line_paths, paramet
                 y_tmp = ('%.4f' % line_values[parameters[1]])
                 ss_label = para_name[parameters[1]] + ' = ' + str(y_tmp)
                 plt.text(line_values[parameters[0]], y_max, ss_label, ha='right',va='top',fontdict={'size': 14, 'color':  'black'})
+            ax = plt.axes()
             ax.spines['top'].set_visible(False)
             ax.spines['right'].set_visible(False)
             plt.title(fileLists[i][j - 1] + '_' + fileLists[i][j], fontdict={'size': 14})
