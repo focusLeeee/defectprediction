@@ -257,7 +257,7 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_li
     if if_line:
         helpers.comparison_difmarker_line_train(single_paths=single_paths, multi_paths=multi_paths, line_paths = line_paths, parameters=target,
                                       single_names=single_names, multi_names=multi_names, line_names = line_names, save_path=save_path,
-                                      if_show_rtborder = if_show_rtborder, rows = rows, columns = columns)
+                                      if_show_rtborder = if_show_rtborder)
     else :
         if color:
             helpers.comparison_difcolor_ssmm_train(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
@@ -317,8 +317,7 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
         helpers.comparison_difmarker_line_test(single_paths=single_paths, multi_paths=multi_paths,
                                                line_paths=line_paths, parameters=target,
                                                single_names=single_names, multi_names=multi_names,
-                                               line_names=line_names, save_path=save_path, if_show_rtborder = if_show_rtborder,
-                                               rows = rows, columns = columns)
+                                               line_names=line_names, save_path=save_path, if_show_rtborder = if_show_rtborder)
     else:
         if color:
             helpers.comparison_difcolor_ssmm_test(single_paths=single_paths, multi_paths=multi_paths, parameters=target,
