@@ -1742,7 +1742,7 @@ def comparison_difmarker_line_test(single_paths, multi_paths,line_paths, paramet
             plt.close()
 
 def combine_difmarker_line_train(single_paths, multi_paths, line_paths, parameters, single_names, multi_names,rows, columns,
-                                    line_names, save_path, if_show_label=True, if_show_rtborder = True):
+                                    line_names, save_path,, if_show_label, if_show_rtborder = True):
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
                   7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
@@ -1793,19 +1793,24 @@ def combine_difmarker_line_train(single_paths, multi_paths, line_paths, paramete
                     for line_file, line_name in zip(line_files, line_names):
                         if line_name == 'CoDE':
                             line_name = 'learning-to-rank'
+                        
                         line_values = line_file.loc[fileLists[i][j]].values.astype('float64').tolist()
-                        plt.vlines(x=line_values[parameters[0]], ymin= 0, ymax=y_max, colors='r', linestyles='--', label=line_name)
+                        if if_show_label:
+                            plt.vlines(x=line_values[parameters[0]], ymin= 0, ymax=y_max, colors='r', linestyles='--', label=line_name)
+                        else:
+                            plt.vlines(x=line_values[parameters[0]], ymin= 0, ymax=y_max, colors='r', linestyles='--')
+                        
                         y_tmp = ('%.4f' % line_values[parameters[1]])
                         ss_label = para_name[parameters[1]] + ' = ' + str(y_tmp)
                         plt.text(line_values[parameters[0]], max_y, ss_label, ha='right',va='top',fontdict={'size': 14, 'color':  'black'})
 
                     plt.title(fileLists[i][j] + '_' + fileLists[i][j], fontdict={'size': 14})
-                    if not if_show_rtborder:
-                        ax = plt.axes()
-                        ax.spines['top'].set_visible(False)
-                        ax.spines['right'].set_visible(False)
-                    if if_show_label:
-                        plt.legend(prop={'size': 14})
+            if not if_show_rtborder:
+                ax = plt.axes()
+                ax.spines['top'].set_visible(False)
+                ax.spines['right'].set_visible(False)
+            if if_show_label:
+                plt.legend(prop={'size': 14})
             plt.savefig(save_path + 'train.png')
             plt.close()
 
@@ -1868,17 +1873,20 @@ def combine_difmarker_line_train(single_paths, multi_paths, line_paths, paramete
                     if line_name == 'CoDE':
                         line_name = 'learning-to-rank'
                     line_values = line_file.loc[mdatas2[0][i][0]].values.astype('float64').tolist()
-                    plt.vlines(x=line_values[parameters[0]], ymin= 0, ymax=y_max, colors='r', linestyles='--', label=line_name)
+                    if if_show_label:
+                        plt.vlines(x=line_values[parameters[0]], ymin= 0, ymax=y_max, colors='r', linestyles='--', label=line_name)
+                    else:
+                        plt.vlines(x=line_values[parameters[0]], ymin= 0, ymax=y_max, colors='r', linestyles='--') 
                     y_tmp = ('%.4f' % line_values[parameters[1]])
                     ss_label = para_name[parameters[1]] + ' = ' + str(y_tmp)
                     plt.text(line_values[parameters[0]], y_max, ss_label, ha='right',va='top',fontdict={'size': 14, 'color':  'black'})
                 plt.title(mdatas1[0][i][0] + '_' + mdatas1[0][i][0], fontdict={'size': 14})
-                if if_show_label:
-                    plt.legend(prop={'size': 14})
-                if not if_show_rtborder:
-                    ax = plt.axes()
-                    ax.spines['top'].set_visible(False)
-                    ax.spines['right'].set_visible(False)
+            if if_show_label:
+                plt.legend(prop={'size': 14})
+            if not if_show_rtborder:
+                ax = plt.axes()
+                ax.spines['top'].set_visible(False)
+                ax.spines['right'].set_visible(False)
             plt.savefig(save_path + 'train.png')
             plt.close()
     elif len(parameters) == 3:
@@ -1896,7 +1904,7 @@ def combine_difmarker_line_train(single_paths, multi_paths, line_paths, paramete
 
 
 def combine_difmarker_line_test(single_paths, multi_paths,line_paths, parameters, single_names, multi_names, line_names, save_path, rows, columns,
-                                   if_show_label=True, if_show_rtborder = True):
+                                   if_show_label, if_show_rtborder = True):
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
                   7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
@@ -1958,7 +1966,10 @@ def combine_difmarker_line_test(single_paths, multi_paths,line_paths, parameters
                     line_name = 'learning-to-rank'
                 line_values = line_file.loc[fileLists[i][j]].values.astype('float64').tolist()
                 print(fileLists[i][j], line_values[parameters[0]])
-                plt.vlines(x=line_values[parameters[0]], ymin= 0, ymax= y_max, colors='r', linestyles='--', label=line_name)
+                if if_show_label:
+                    plt.vlines(x=line_values[parameters[0]], ymin= 0, ymax= y_max, colors='r', linestyles='--', label=line_name)
+                else:
+                    plt.vlines(x=line_values[parameters[0]], ymin= 0, ymax= y_max, colors='r', linestyles='--')
                 y_tmp = ('%.4f' % line_values[parameters[1]])
                 ss_label = para_name[parameters[1]] + ' = ' + str(y_tmp)
                 plt.text(line_values[parameters[0]], y_max, ss_label, ha='right',va='top',fontdict={'size': 14, 'color':  'black'})
@@ -1967,7 +1978,7 @@ def combine_difmarker_line_test(single_paths, multi_paths,line_paths, parameters
                 ax.spines['top'].set_visible(False)
                 ax.spines['right'].set_visible(False)
             plt.title(fileLists[i][j - 1] + '_' + fileLists[i][j], fontdict={'size': 14})
-            if if_show_label:
-                plt.legend(prop={'size': 14})
+        if if_show_label:
+            plt.legend(prop={'size': 14})
         plt.savefig(save_path + 'test.png')
         plt.close()
