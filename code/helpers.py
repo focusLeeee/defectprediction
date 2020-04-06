@@ -2076,7 +2076,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
                 if single_name == 'CoDE':
                     single_name = 'learning-to-rank'
                 single_values = single_file.loc[mdatas2[0][i][0]].values.astype('float64').tolist()
-                fpas = (single_values[parameters[0]]
+                fpas = single_values[parameters[0]]
                 mses = single_values[parameters[1]]
                 log_mses = log(mses)
                 if if_show_label:
