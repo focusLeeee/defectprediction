@@ -2011,7 +2011,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
                 single_marker = 0
                 plt.figure(figsize=(8, 4))
                 plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
-                plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
+                plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': 14})
                 for single_file, single_name in zip(single_files, single_names):
                     if single_name == 'CoDE':
                         single_name = 'learning-to-rank'
@@ -2058,7 +2058,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
 
             plt.figure(figsize=(8, 4))
             plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
-            plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
+            plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': 14})
 
             for mdata1, mdata2, multi_name in zip(mdatas1, mdatas2, multi_names):
                 m_x = list(map(lambda x: float(x), mdata1[i][1:]))
@@ -2120,7 +2120,7 @@ def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, mul
         for j in range(2, len(fileLists[i])):
             plt.figure(figsize=(8, 4))
             plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
-            plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
+            plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': 14})
 
             single_marker = 0
             multi_marker = 0
