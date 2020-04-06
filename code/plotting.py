@@ -331,8 +331,89 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
 
 
 
+def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2, if_show_label = True, save_folder = 'log04'):
+    multi_names = []
+    multi_paths = []
 
+    for moea in moea_list:
+        model_method =  dictionaries.get_model_method_name(moea[0])
+        moea_name = dictionaries.get_moea_name(moea[1])
+        op_target_name = dictionaries.get_target_composition(moea[2])
+        multi_paths.append('../results/multi-objective/' +model_method+'/'+moea_name + '/' + op_target_name + '/train/')
+        if type == 1:
+            write_algorithm = moea_name.replace('nsga2_random20p_toZero', 'multi-objective-revised')
+            write_algorithm = write_algorithm.replace('nsga2', 'multi-objective')
+            # if moea_name == 'nsga2':
+            #     write_algorithm = 'multi-objective'
+            # elif moea_name == 'nsga2_toZero':
+            #     write_algorithm = 'multi-objective-revised'
+        else:
+            write_algorithm = moea_name
+        write_target = op_target_name.replace('nonz', 'NNZ')
+        multi_names.append(write_algorithm + '/' + write_target)
+    sklearn_names = []
+    for i in sklearn_list:
+        sklearn_names.append(dictionaries.get_sklearn_name(i))
+    soea_names = []
+    soea_methods = []
+    for soea in soea_list:
+        soea_methods.append(dictionaries.get_model_method_name(soea[0]))
+        soea_names.append(dictionaries.get_soea_name(soea[1]))
+    single_paths = []
+    for sklearn_name in sklearn_names:
+        single_paths.append('../results/compared_algorithms/' + sklearn_name + '/train/')
+    for soea_method, soea_name in zip(soea_methods,soea_names):
+        single_paths.append('../results/single-objective/' +soea_method + '/'+ soea_name  + '/train/')
+    single_names = sklearn_names +soea_names
 
+    save_path = '../results/plotting/' + save_folder+'/train/'
+    print(multi_names, multi_paths)
+    print(single_names, single_paths)
+
+    helpers.comparison_difmarker_log04_train(single_paths=single_paths, multi_paths=multi_paths,
+                                single_names=single_names, multi_names=multi_names, save_path=save_path, if_show_label=if_show_label)
+
+def plotting_universal_log04_test(moea_list, sklearn_list, soea_list, type = 2, if_show_label = True, save_folder = 'log04'):
+    multi_names = []
+    multi_paths = []
+
+    for moea in moea_list:
+        model_method =  dictionaries.get_model_method_name(moea[0])
+        moea_name = dictionaries.get_moea_name(moea[1])
+        op_target_name = dictionaries.get_target_composition(moea[2])
+        multi_paths.append('../results/multi-objective/' +model_method+'/'+moea_name + '/' + op_target_name + '/test/')
+        if type == 1:
+            write_algorithm = moea_name.replace('nsga2_random20p_toZero', 'multi-objective-revised')
+            write_algorithm = write_algorithm.replace('nsga2', 'multi-objective')
+            # if moea_name == 'nsga2':
+            #     write_algorithm = 'multi-objective'
+            # elif moea_name == 'nsga2_toZero':
+            #     write_algorithm = 'multi-objective-revised'
+        else:
+            write_algorithm = moea_name
+        write_target = op_target_name.replace('nonz', 'NNZ')
+        multi_names.append(write_algorithm + '/' + write_target)
+    sklearn_names = []
+    for i in sklearn_list:
+        sklearn_names.append(dictionaries.get_sklearn_name(i))
+    soea_names = []
+    soea_methods = []
+    for soea in soea_list:
+        soea_methods.append(dictionaries.get_model_method_name(soea[0]))
+        soea_names.append(dictionaries.get_soea_name(soea[1]))
+    single_paths = []
+    for sklearn_name in sklearn_names:
+        single_paths.append('../results/compared_algorithms/' + sklearn_name + '/test/')
+    for soea_method, soea_name in zip(soea_methods,soea_names):
+        single_paths.append('../results/single-objective/' +soea_method + '/'+ soea_name  + '/test/')
+    single_names = sklearn_names +soea_names
+
+    save_path = '../results/plotting/' + save_folder+'/test/'
+    print(multi_names, multi_paths)
+    print(single_names, single_paths)
+
+    helpers.comparison_difmarker_log04_test(single_paths=single_paths, multi_paths=multi_paths,
+                                single_names=single_names, multi_names=multi_names, save_path=save_path, if_show_label=if_show_label)
 
 
 

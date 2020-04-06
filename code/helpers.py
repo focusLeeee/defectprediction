@@ -1982,3 +1982,179 @@ def combine_difmarker_line_test(single_paths, multi_paths,line_paths, parameters
         plt.legend(prop={'size': 14})
     plt.savefig(save_path + 'test.png')
     plt.close()
+
+
+    
+def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, multi_names, save_path, if_show_label=True):
+    parameters = [0, 4]
+    para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
+    color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
+                  7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
+
+    multi_marker_dict = {0: '.', 1: '+', 2: 'x', 3: '1', 4: '2', 5: '|', 6: '3', 7: 'd'}
+    single_marker_dict = {0: 's', 1: '^', 2: 'o', 3: '*'}
+    # 需要注意的是，恰好再测试集和数据集时，记录最优的模型对应的性能都是doc1文件。
+    single_files = []
+    for single_path in single_paths:
+        single_files.append(pd.read_csv(single_path + 'doc1.csv', header=0, index_col=0))
+
+    multi_files = []
+    # 每一个文档后面都是之前的m——file
+    for multi_path in multi_paths:
+        multi_files.append(get_m_files(multi_path, parameters))
+
+    if len(multi_files) == 0:
+        fileLists = dictionaries.get_filelists()
+        for i in range(len(fileLists)):
+            for j in range(1, fileLists[i]):
+                single_marker = 0
+                plt.figure(figsize=(8, 4))
+                plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
+                plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
+                for single_file, single_name in zip(single_files, single_names):
+                    if single_name == 'CoDE':
+                        single_name = 'learning-to-rank'
+                    single_values = single_file.loc[fileLists[i][j]].values.astype('float64').tolist()
+                    fpas = (single_values[parameters[0]]
+                    mses = single_values[parameters[1]]
+                    log_mses = log(mses)
+                    if if_show_label:
+                        plt.plot(fpas, log_mses,
+                                    single_marker_dict[single_marker], label=single_name, markersize=16)
+                    else:
+                        plt.plot(fpas, log_mses,
+                                    single_marker_dict[single_marker], markersize=16)
+                        print(single_marker_dict[single_marker], single_name)
+                    single_marker += 1
+                plt.title(fileLists[i][j] + '_' + fileLists[i][j], fontdict={'size': 14})
+                if if_show_label:
+                    plt.legend(prop={'size': 14})
+                plt.savefig(save_path + fileLists[i][j] + '.png')
+                plt.close()
+
+    else:
+        readers1 = []
+        readers2 = []
+        # readers1 记录的是维度1, 算法个数 *文件个数 * 值
+        # readers2 记录的是维度2，算法个数 *文件个数 * 值
+        for multi_file in multi_files:
+            readers1.append(csv.reader(multi_file[0]))
+            readers2.append(csv.reader(multi_file[1]))
+
+        # mdatas1 记录的是维度1 算法个数 *文件个数 * 值
+        mdatas1 = []
+        # ndatas2 记录的是维度2 算法个数 *文件个数 * 值
+        mdatas2 = []
+        for reader in zip(readers1, readers2):
+            mdatas1.append(list(reader[0]))
+            mdatas2.append(list(reader[1]))
+
+        for i in range(len(mdatas1[0])):
+            multi_marker = 0
+            single_marker = 0
+            for t in range(len(mdatas1)):
+                assert mdatas1[t][i][0] == mdatas2[0][i][0]
+
+            plt.figure(figsize=(8, 4))
+            plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
+            plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
+
+            for mdata1, mdata2, multi_name in zip(mdatas1, mdatas2, multi_names):
+                m_x = list(map(lambda x: float(x), mdata1[i][1:]))
+                m_y = list(map(lambda x: float(x), mdata2[i][1:]))
+                log_m_y = [log(tmp) for tmp in m_y]
+                if if_show_label:
+                    plt.plot(m_x, log_m_y, multi_marker_dict[multi_marker], label=multi_name, markersize=8)
+                else:
+                    plt.plot(m_x, log_m_y, multi_marker_dict[multi_marker], markersize=8)
+                    print(multi_marker_dict[multi_marker], multi_name)
+                multi_marker += 1
+
+            # plt.axvline(x = single_values[-1],
+            #             color='red', label=single_name, linestyle = '-')
+            for single_file, single_name in zip(single_files, single_names):
+                if single_name == 'CoDE':
+                    single_name = 'learning-to-rank'
+                single_values = single_file.loc[mdatas2[0][i][0]].values.astype('float64').tolist()
+                fpas = (single_values[parameters[0]]
+                mses = single_values[parameters[1]]
+                log_mses = log(mses)
+                if if_show_label:
+                    plt.plot(fpas, log_mses, single_marker_dict[single_marker], label=single_name, markersize=16)
+                else:
+                    plt.plot(fpas, log_mses, single_marker_dict[single_marker], markersize=16)
+                    print(single_marker_dict[single_marker], single_name)
+                single_marker += 1
+            plt.title(mdatas1[0][i][0] + '_' + mdatas1[0][i][0], fontdict={'size': 14})
+            if if_show_label:
+                plt.legend(prop={'size': 14})
+            plt.savefig(save_path + mdatas1[0][i][0] + '.png')
+            plt.close()
+
+
+'''
+简介：
+    1. 该函数用于单目标算法和多目标算法的训练集的对比
+    2. parameters用于指定，所对比的参数是什么
+        0---FPA
+        1---AAE
+        2---numOfnonZero
+'''
+
+
+def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, multi_names, save_path, if_show_label=True):
+    parameters = [0, 4]
+    para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
+    color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
+                  7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
+    multi_marker_dict = {0: '.', 1: '+', 2: 'x', 3: '1', 4: '2', 5: '|', 6: '3', 7: 'd'}
+    single_marker_dict = {0: 's', 1: '^', 2: 'o', 3: '*'}
+    # 需要注意的是，恰好再测试集和数据集时，记录最优的模型对应的性能都是doc1文件。
+    single_files = []
+    for single_path in single_paths:
+        single_files.append(pd.read_csv(single_path + 'doc1.csv', header=0, index_col=0))
+    #single_file = pd.read_csv(single_path + 'doc5.csv', header=0, index_col=0)
+    fileLists = dictionaries.get_filelists()
+    for i in range(len(fileLists)):
+        for j in range(2, len(fileLists[i])):
+            plt.figure(figsize=(8, 4))
+            plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
+            plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
+
+            single_marker = 0
+            multi_marker = 0
+
+            for multi_path, multi_name in zip(multi_paths, multi_names):
+                m_file = pd.read_csv(multi_path + fileLists[i][j] + '.csv', header=1, index_col=1)
+                write_name = multi_name.replace('nonz', 'NNZ')
+                fpas = m_file[para_name[parameters[0]]].values
+                mses =  m_file[para_name[parameters[1]]].values
+                log_mses = [log(tmp) for tmp in mses]
+                if if_show_label:
+                    plt.plot(fpas, log_mses,
+                             multi_marker_dict[multi_marker], label=write_name, ms=8)
+                else:
+                    plt.plot(fpas, log_mses,
+                             multi_marker_dict[multi_marker], ms=8)
+                    print(multi_marker_dict[multi_marker], write_name)
+                multi_marker += 1
+
+            for single_file, single_name in zip(single_files, single_names):
+                if single_name == 'CoDE':
+                    single_name = 'learning-to-rank'
+                fpas = single_file.loc[fileLists[i][j], para_name[parameters[0]]]
+                mses = single_file.loc[fileLists[i][j], para_name[parameters[1]]]
+                log_mses = log(mses)
+                if if_show_label:
+                    plt.plot(fpas,log_mses ,
+                             single_marker_dict[single_marker], label=single_name, ms=16)
+                else:
+                    plt.plot(fpas,log_mses, single_marker_dict[single_marker], ms=16)
+                    print(single_marker_dict[single_marker], single_name)
+                single_marker += 1
+
+            plt.title(fileLists[i][j - 1] + '_' + fileLists[i][j], fontdict={'size': 14})
+            if if_show_label:
+                plt.legend(prop={'size': 14})
+            plt.savefig(save_path + fileLists[i][j - 1] + '_' + fileLists[i][j] + '.png')
+            plt.close()
