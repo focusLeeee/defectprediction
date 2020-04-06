@@ -10,6 +10,7 @@ import csv
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 import dictionaries
+import math
 
 
 def getfeatures(path, file):
@@ -2017,7 +2018,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
                     single_values = single_file.loc[fileLists[i][j]].values.astype('float64').tolist()
                     fpas = single_values[parameters[0]]
                     mses = single_values[parameters[1]]
-                    log_mses = log(mses)
+                    log_mses = math.log(mses)
                     if if_show_label:
                         plt.plot(fpas, log_mses,
                                     single_marker_dict[single_marker], label=single_name, markersize=16)
@@ -2062,7 +2063,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
             for mdata1, mdata2, multi_name in zip(mdatas1, mdatas2, multi_names):
                 m_x = list(map(lambda x: float(x), mdata1[i][1:]))
                 m_y = list(map(lambda x: float(x), mdata2[i][1:]))
-                log_m_y = [log(tmp) for tmp in m_y]
+                log_m_y = [math.log(tmp) for tmp in m_y]
                 if if_show_label:
                     plt.plot(m_x, log_m_y, multi_marker_dict[multi_marker], label=multi_name, markersize=8)
                 else:
@@ -2078,7 +2079,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
                 single_values = single_file.loc[mdatas2[0][i][0]].values.astype('float64').tolist()
                 fpas = single_values[parameters[0]]
                 mses = single_values[parameters[1]]
-                log_mses = log(mses)
+                log_mses = math.log(mses)
                 if if_show_label:
                     plt.plot(fpas, log_mses, single_marker_dict[single_marker], label=single_name, markersize=16)
                 else:
@@ -2129,7 +2130,7 @@ def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, mul
                 write_name = multi_name.replace('nonz', 'NNZ')
                 fpas = m_file[para_name[parameters[0]]].values
                 mses =  m_file[para_name[parameters[1]]].values
-                log_mses = [log(tmp) for tmp in mses]
+                log_mses = [math.log(tmp) for tmp in mses]
                 if if_show_label:
                     plt.plot(fpas, log_mses,
                              multi_marker_dict[multi_marker], label=write_name, ms=8)
@@ -2144,7 +2145,7 @@ def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, mul
                     single_name = 'learning-to-rank'
                 fpas = single_file.loc[fileLists[i][j], para_name[parameters[0]]]
                 mses = single_file.loc[fileLists[i][j], para_name[parameters[1]]]
-                log_mses = log(mses)
+                log_mses = math.log(mses)
                 if if_show_label:
                     plt.plot(fpas,log_mses ,
                              single_marker_dict[single_marker], label=single_name, ms=16)
