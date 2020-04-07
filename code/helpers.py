@@ -144,6 +144,7 @@ u:决策变量的上界
 
 def training_record_for_ssdp_m(save_folder, predict_model, l, u, soea):
     fileLists = dictionaries.get_filelists()
+    para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     path = 'data/'
   
     doc1 = []
