@@ -142,7 +142,7 @@ l:决策变量的下界
 u:决策变量的上界
 '''
 
-def training_record_for_ssdp_m(save_folder, predict_model, l, u, save_folder, soea):
+def training_record_for_ssdp_m(save_folder, predict_model, l, u, soea):
     fileLists = dictionaries.get_filelists()
     path = 'data/'
   
