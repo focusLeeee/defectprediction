@@ -217,7 +217,7 @@ def training_record_for_ssdp_m(save_folder, predict_model, l, u, soea):
             f4_set.insert(0, fileLists[i][j])
             doc5.append(f4_set)
 
-            f5 = tgf.MSE(predValue, y)
+            f5 = tgf.MSE(predvalue, y)
             f5_set = list(f5)
             f5_set.insert(0, fileLists[i][j])
             doc6.append(f5_set)
