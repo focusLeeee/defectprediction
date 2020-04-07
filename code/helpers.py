@@ -212,7 +212,7 @@ def training_record_for_ssdp_m(save_folder, predict_model, l, u, soea):
             f3_set.insert(0, fileLists[i][j])
             doc4.append(f3_set)
 
-            f4 = tgf.l1_values(model.NDSet.Chrom)
+            f4 = tgf.l1_values(best_Chrom)
             f4_set = list(f4)
             f4_set.insert(0, fileLists[i][j])
             doc5.append(f4_set)
