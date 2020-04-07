@@ -35,6 +35,13 @@ def run_msdp_train(moea, targets, predict_model):
     u = 20
     helpers.training_record_for_msdp(save_folder=folder_name, target= targets, predict_model=predict_model, l = l, u = u,
                                      moea=moea)
+def train_ssdp_m(soea, predict_model):
+    soea_name = dictionaries.get_soea_name(soea)
+    predict_model_name = dictionaries.get_model_method_name(predict_model)
+    folder_name = 'multi-objective/'+ predict_model_name +'/'+ soea_name
+    l = -20
+    u = 20
+    helpers.training_record_for_ssdp_m(predict_model=predict_model, l = l, u=u, save_folder=folder_name, soea = soea)
 
 
 def split_train_test_msdp(moea, targets, predict_model, validation_size = 0.2):
@@ -316,6 +323,7 @@ def run_lassoLarsCV(single_time):
     else:
         save_folder += '10t'
         comparison_algorithm.training_test_10times_sklearnmodel(save_folder=save_folder, model=model)
+        
 def run_Lars(single_time):
     save_folder = 'Lars'
     model = Lars()

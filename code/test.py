@@ -39,7 +39,12 @@ def run_train_split_test(method, moea, target):
 
 
 
-
+def run_ssdpM_test(method,soea):
+    type = 2
+    soea_name = dictionaries.get_soea_name(soea)
+    method_name = dictionaries.get_model_method_name(method)
+    folder_name = 'multi-objective/' + method_name + '/' + soea_name
+    helpers.test_model(folder_name=folder_name, type = type, predict_model=method)
 '''
 --------------------------------------------------------------------------------------------------------
 '''

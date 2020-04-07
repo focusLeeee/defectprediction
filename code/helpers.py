@@ -54,7 +54,6 @@ def training_record_for_ssdp(predict_model, l, u, save_folder, soea):
             model.run()
 
 
-#============================以下部分尚未搞定！！！！=====================================
             # 找出单目标的最优的f1, f2, f3
             best_gen = np.argmin(model.problem.maxormins * model.obj_trace[:, 1])
             best_objV = model.obj_trace[best_gen, 1]
@@ -143,7 +142,117 @@ l:决策变量的下界
 u:决策变量的上界
 '''
 
+def training_record_for_ssdp_m(save_folder, predict_model, l, u, save_folder, soea):
+    fileLists = dictionaries.get_filelists()
+    path = 'data/'
+  
+    doc1 = []
+    doc1_names = ['filename']
 
+    doc1_names.append(para_name[0])
+    doc2 = []
+
+    doc1_names.append(para_name[1])
+    doc3 = []
+
+    doc1_names.append(para_name[2])
+    doc4 = []
+
+    doc1_names.append(para_name[3])
+    doc5 = []
+
+    doc1_names.append(para_name[4])
+    doc6 = []
+
+    save_path = '../results/' + save_folder + '/train/'
+    for i in range(len(fileLists)):
+        for j in range(1, len(fileLists[i])):
+            print('\n\n\n' + fileLists[i][j] + '\n\n\n')
+            X, y = getfeatures(path, fileLists[i][j])
+            model = SSDP(X=X, y=y, model=predict_model, drawing=0, l=l, u=u, soea=soea)
+            model.run()
+
+            # 找出单目标的最优的f1, f2, f3
+            best_gen = np.argmin(model.problem.maxormins * model.obj_trace[:, 1])
+            best_objV = model.obj_trace[best_gen, 1]
+            best_Chrom = []
+            for tmp_index in range(model.population.ObjV.shape[0]):
+                if model.population.ObjV[tmp_index][0] == best_objV:
+                    best_Chrom.append(model.population.Chrom[tmp_index])
+            best_Chrom = np.array(best_Chrom)
+
+            if predict_model == 1:
+                predvalue = tgf.linear_predict(X, best_Chrom)
+            elif predict_model == 2:
+                predvalue = tgf.bpnn_predict(X, best_Chrom)
+            elif predict_model == 3:
+                predvalue = tgf.nn_predict(X, best_Chrom)
+            elif predict_model == 4:
+                predvalue = tgf.mlp_predict(X, best_Chrom)
+            elif predict_model == 5:
+                predvalue = tgf.mlpn_predict(X,best_Chrom, 3)
+            elif predict_model == 6:
+                predvalue = tgf.mlpn_predict(X, best_Chrom, 5)
+            else:
+                print('error model method number in helpers !!!! ')
+
+            f1 = tgf.FPA(predvalue, y)
+            f1_set = list(f1)
+            f1_set.insert(0, fileLists[i][j])
+            doc2.append(f1_set)
+
+            f2 = tgf.AAE(predvalue, y)
+            f2_set = list(f2)
+            f2_set.insert(0, fileLists[i][j])
+            doc3.append(f2_set)
+
+            f3 = tgf.numOfnonZero(best_Chrom)
+            f3_set = list(f3)
+            f3_set.insert(0, fileLists[i][j])
+            doc4.append(f3_set)
+
+            f4 = tgf.l1_values(model.NDSet.Chrom)
+            f4_set = list(f4)
+            f4_set.insert(0, fileLists[i][j])
+            doc5.append(f4_set)
+
+            f5 = tgf.MSE(predValue, y)
+            f5_set = list(f5)
+            f5_set.insert(0, fileLists[i][j])
+            doc6.append(f5_set)
+
+            params = pd.DataFrame(best_Chrom)
+            params.to_csv(save_path + fileLists[i][j] + '.csv')
+            
+    with open(save_path + 'doc1.csv', 'w', newline='') as file1:
+        writer1 = csv.writer(file1)
+        for row in doc1:
+            writer1.writerow(row)
+
+    with open(save_path + 'doc2.csv', 'w', newline='') as file2:
+        writer2 = csv.writer(file2)
+        for row in doc2:
+            writer2.writerow(row)
+
+    with open(save_path + 'doc3.csv', 'w', newline='') as file3:
+        writer3 = csv.writer(file3)
+        for row in doc3:
+            writer3.writerow(row)
+
+    with open(save_path + 'doc4.csv', 'w', newline='') as file4:
+        writer4 = csv.writer(file4)
+        for row in doc4:
+            writer4.writerow(row)
+
+    with open(save_path + 'doc5.csv', 'w', newline='') as file5:
+        writer5 = csv.writer(file5)
+        for row in doc5:
+            writer5.writerow(row)
+
+    with open(save_path + 'doc6.csv', 'w', newline='') as file6:
+        writer6 = csv.writer(file6)
+        for row in doc6:
+            writer6.writerow(row)
 def training_record_for_msdp(save_folder, target, predict_model, l, u, moea, drawing=0, maxgen=100):
     fileLists = dictionaries.get_filelists()
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
