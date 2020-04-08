@@ -350,7 +350,7 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
 
 
 
-def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2, if_show_label = True, save_folder = 'log04'， if_sM = False):
+def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2, if_show_label = True, save_folder = 'log04', if_sM = False):
     multi_names = []
     multi_paths = []
 
