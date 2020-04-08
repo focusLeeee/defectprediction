@@ -229,7 +229,10 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_li
             write_algorithm = moea_name
         write_target = op_target_name.replace('nonz', 'NNZ')
         moea_methods.append(moea_method)
-        multi_names.append(write_algorithm + '/' + write_target)
+        if type == 1:
+            multi_names.append(write_algorithm)
+        else:
+            multi_names.append(write_algorithm + '/' + write_target)
     
     single_paths = []
 
@@ -306,7 +309,10 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
             write_algorithm = moea_name
         write_target = op_target_name.replace('nonz', 'NNZ')
         moea_methods.append(moea_method)
-        multi_names.append(write_algorithm + '/' + write_target)
+        if type == 1:
+            multi_names.append(write_algorithm)
+        else:
+            multi_names.append(write_algorithm + '/' + write_target)
         
     single_paths = []
 
@@ -383,7 +389,10 @@ def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2,
         else:
             write_algorithm = moea_name
         write_target = op_target_name.replace('nonz', 'NNZ')
-        multi_names.append(write_algorithm + '/' + write_target)
+        if type == 1:
+            multi_names.append(write_algorithm)
+        else:
+            multi_names.append(write_algorithm + '/' + write_target)
     
     single_paths = []
 
@@ -435,7 +444,10 @@ def plotting_universal_log04_test(moea_list, sklearn_list, soea_list, type = 2, 
         else:
             write_algorithm = moea_name
         write_target = op_target_name.replace('nonz', 'NNZ')
-        multi_names.append(write_algorithm + '/' + write_target)
+        if type == 1:
+            multi_names.append(write_algorithm)
+        else:
+            multi_names.append(write_algorithm + '/' + write_target)
     single_paths = []
 
     sklearn_names = []
