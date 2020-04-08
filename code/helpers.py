@@ -1376,6 +1376,8 @@ def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, singl
                 plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
 
                 for mdata1, mdata2, multi_name in zip(mdatas1, mdatas2, multi_names):
+                    if multi_name == 'CoDE':
+                        multi_name = 'learning-to-rank'
                     m_x = list(map(lambda x: float(x), mdata1[i][1:]))
                     m_y = list(map(lambda x: float(x), mdata2[i][1:]))
                     if if_show_label:
@@ -1441,6 +1443,8 @@ def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single
 
             for multi_path, multi_name in zip(multi_paths, multi_names):
                 m_file = pd.read_csv(multi_path + fileLists[i][j] + '.csv', header=1, index_col=1)
+                if multi_name == 'CoDE':
+                        multi_name = 'learning-to-rank'
                 write_name = multi_name.replace('nonz', 'NNZ')
                 if if_show_label:
                     plt.plot(m_file[para_name[parameters[0]]].values, m_file[para_name[parameters[1]]].values,
@@ -1955,6 +1959,8 @@ def combine_difmarker_line_train(single_paths, multi_paths, line_paths, paramete
                 plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
 
                 for mdata1, mdata2, multi_name in zip(mdatas1, mdatas2, multi_names):
+                    if multi_name == 'CoDE':
+                        multi_name = 'learning-to-rank'
                     m_x = list(map(lambda x: float(x), mdata1[i][1:]))
                     m_y = list(map(lambda x: float(x), mdata2[i][1:]))
                     y_max = max(y_max, max(m_y))
@@ -2174,6 +2180,8 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
                 m_x = list(map(lambda x: float(x), mdata1[i][1:]))
                 m_y = list(map(lambda x: float(x), mdata2[i][1:]))
                 log_m_y = [math.log(tmp) for tmp in m_y]
+                if multi_name == 'CoDE':
+                        multi_name = 'learning-to-rank'
                 if if_show_label:
                     plt.plot(m_x, log_m_y, multi_marker_dict[multi_marker], label=multi_name, markersize=8)
                 else:
@@ -2236,6 +2244,8 @@ def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, mul
             multi_marker = 0
 
             for multi_path, multi_name in zip(multi_paths, multi_names):
+                if multi_name == 'CoDE':
+                        multi_name = 'learning-to-rank'
                 m_file = pd.read_csv(multi_path + fileLists[i][j] + '.csv', header=1, index_col=1)
                 write_name = multi_name.replace('nonz', 'NNZ')
                 fpas = m_file[para_name[parameters[0]]].values
