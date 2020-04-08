@@ -235,8 +235,8 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_li
         single_paths.append('../results/compared_algorithms/' + sklearn_name + '/train/')
     
     soea_names = []
-        for soea in soea_list:
-            soea_names.append(dictionaries.get_model_method_name(soea[0])+'/'+dictionaries.get_soea_name(soea[1]))
+    for soea in soea_list:
+        soea_names.append(dictionaries.get_model_method_name(soea[0])+'/'+dictionaries.get_soea_name(soea[1]))
     if if_sM:
         for soea_name in soea_names:
             multi_paths.append('../results/multi-objective/' + soea_name  + '/train/')
@@ -306,8 +306,8 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
         single_paths.append('../results/compared_algorithms/' + sklearn_name + '/test/')
     
     soea_names = []
-        for soea in soea_list:
-            soea_names.append(dictionaries.get_model_method_name(soea[0])+'/'+dictionaries.get_soea_name(soea[1]))
+    for soea in soea_list:
+        soea_names.append(dictionaries.get_model_method_name(soea[0])+'/'+dictionaries.get_soea_name(soea[1]))
     if if_sM:
         for soea_name in soea_names:
             multi_paths.append('../results/multi-objective/' + soea_name  + '/test/')
@@ -380,8 +380,8 @@ def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2,
         single_paths.append('../results/compared_algorithms/' + sklearn_name + '/train/')
     
     soea_names = []
-        for soea in soea_list:
-            soea_names.append(dictionaries.get_model_method_name(soea[0])+'/'+dictionaries.get_soea_name(soea[1]))
+    for soea in soea_list:
+        soea_names.append(dictionaries.get_model_method_name(soea[0])+'/'+dictionaries.get_soea_name(soea[1]))
     if if_sM:
         for soea_name in soea_names:
             multi_paths.append('../results/multi-objective/' + soea_name  + '/train/')
@@ -429,8 +429,8 @@ def plotting_universal_log04_test(moea_list, sklearn_list, soea_list, type = 2, 
         single_paths.append('../results/compared_algorithms/' + sklearn_name + '/test/')
     
     soea_names = []
-        for soea in soea_list:
-            soea_names.append(dictionaries.get_model_method_name(soea[0])+'/'+dictionaries.get_soea_name(soea[1]))
+    for soea in soea_list:
+        soea_names.append(dictionaries.get_model_method_name(soea[0])+'/'+dictionaries.get_soea_name(soea[1]))
     if if_sM:
         for soea_name in soea_names:
             multi_paths.append('../results/multi-objective/' + soea_name  + '/test/')
