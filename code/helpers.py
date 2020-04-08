@@ -1303,7 +1303,7 @@ def comparison_difcolor_ssmm_train(single_paths, multi_paths, parameters, single
         pass
 
 
-def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, single_names, multi_names, save_path, msize, wsize, if_show_label=True):
+def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, single_names, multi_names, save_path, msize, wsize,figsize, if_show_label=True):
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
                   7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
@@ -1327,7 +1327,7 @@ def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, singl
             for i in range(len(fileLists)):
                 for j in range(1, fileLists[i]):
                     single_marker = 0
-                    plt.figure(figsize=(8, 4))
+                    plt.figure(figsize=(figsize[0], figsize[1]))
                     plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
                     plt.ylabel(para_name[parameters[1]], fontdict={'size': wsize[0]})
                     for single_file, single_name in zip(single_files, single_names):
@@ -1371,7 +1371,7 @@ def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, singl
                 for t in range(len(mdatas1)):
                     assert mdatas1[t][i][0] == mdatas2[0][i][0]
 
-                plt.figure(figsize=(8, 4))
+                plt.figure(figsize=(figsize[0], figsize[1]))
                 plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
                 plt.ylabel(para_name[parameters[1]], fontdict={'size': wsize[0]})
 
@@ -1420,7 +1420,7 @@ def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, singl
 '''
 
 
-def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single_names, multi_names, save_path, wsize, msize, if_show_label=True):
+def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single_names, multi_names, save_path, wsize, msize,figsize, if_show_label=True):
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
                   7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
@@ -1434,7 +1434,7 @@ def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single
     fileLists = dictionaries.get_filelists()
     for i in range(len(fileLists)):
         for j in range(2, len(fileLists[i])):
-            plt.figure(figsize=(8, 4))
+            plt.figure(figsize=(figsize[0], figsize[1]))
             plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
             plt.ylabel(para_name[parameters[1]], fontdict={'size': wsize[0]})
 
@@ -2102,7 +2102,7 @@ def combine_difmarker_line_test(single_paths, multi_paths,line_paths, parameters
 
 
     
-def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, multi_names, save_path, msize, wsize, if_show_label=True):
+def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, multi_names, save_path, msize, wsize,figsize, if_show_label=True):
     parameters = [0, 4]
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
@@ -2125,7 +2125,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
         for i in range(len(fileLists)):
             for j in range(1, fileLists[i]):
                 single_marker = 0
-                plt.figure(figsize=(8, 4))
+                plt.figure(figsize=(figsize[0], figsize[1]))
                 plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
                 plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': wsize[0]})
                 for single_file, single_name in zip(single_files, single_names):
@@ -2172,7 +2172,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
             for t in range(len(mdatas1)):
                 assert mdatas1[t][i][0] == mdatas2[0][i][0]
 
-            plt.figure(figsize=(8, 4))
+            plt.figure(figsize=(figsize[0], figsize[1]))
             plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
             plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': wsize[0]})
 
@@ -2221,7 +2221,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
 '''
 
 
-def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, multi_names, save_path, wsize, msize,if_show_label=True):
+def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, multi_names, save_path, wsize, msize, figsize, if_show_label=True):
     parameters = [0, 4]
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
@@ -2236,7 +2236,7 @@ def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, mul
     fileLists = dictionaries.get_filelists()
     for i in range(len(fileLists)):
         for j in range(2, len(fileLists[i])):
-            plt.figure(figsize=(8, 4))
+            plt.figure(figsize=(figsize[0], figsize[1]))
             plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
             plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': wsize[0]})
 
