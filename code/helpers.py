@@ -1449,7 +1449,7 @@ def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single
                 write_name = multi_name.replace('nonz', 'NNZ')
                 if if_show_label:
                     plt.plot(m_file[para_name[parameters[0]]].values, m_file[para_name[parameters[1]]].values,
-multilabelct[multi_marker], label=write_name, ms=msize[1])
+                    multi_marker_dict[multi_marker], label=write_name, ms=msize[1])
                 else:
                     plt.plot(m_file[para_name[parameters[0]]].values, m_file[para_name[parameters[1]]].values,
                              multi_marker_dict[multi_marker], ms=msize[1])
