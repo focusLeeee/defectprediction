@@ -305,20 +305,25 @@ plotting.plotting_universal_train(moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]],
 #=============================================================================
 #===============================0408==========================================
 #=====================================绘图记录多个值的CoDE算法
+
+#===============================确定fontsize 和markersize
+plotting.plotting_universal_log04_train(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5], moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
+plotting.plotting_universal_log04_test(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5],moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
+
 #=======================================绘图nsga2/nsga2-random20ptozero/code/04=====
-plotting.plotting_universal_log04_train(moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
-plotting.plotting_universal_log04_test(moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
+plotting.plotting_universal_log04_train(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5], moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
+plotting.plotting_universal_log04_test(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5], moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
 #=======================================绘图nsga2/nsga2-random20ptozero/code /04无标签=====
 
-plotting.plotting_universal_log04_train(if_show_label = False, moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
-plotting.plotting_universal_log04_test(if_show_label = False,moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
+plotting.plotting_universal_log04_train(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5],if_show_label = False, moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
+plotting.plotting_universal_log04_test(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5],if_show_label = False,moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
 
 
 #=======================================绘图nsga2/nsga2-random20ptozero/code/02=====
-plotting.plotting_universal_test(moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list = [], soea_list = [[1, 1]], target=[0,2], color = False, if_sM = True)
-plotting.plotting_universal_train(moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list = [], soea_list = [[1, 1]], target=[0,2], color = False, if_sM = True)
+plotting.plotting_universal_test(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5],moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list = [], soea_list = [[1, 1]], target=[0,2], color = False, if_sM = True)
+plotting.plotting_universal_train(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5],moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list = [], soea_list = [[1, 1]], target=[0,2], color = False, if_sM = True)
 
 #=======================================绘图nsga2/nsga2-random20ptozero/code 无标签/02=====
 
-plotting.plotting_universal_test(moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list = [], soea_list = [[1, 1]], target=[0,2], color = False, if_show_label = False, if_sM = True)
-plotting.plotting_universal_train(moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list = [], soea_list = [[1, 1]], target=[0,2], color = False, if_show_label = False, if_sM = True)
+plotting.plotting_universal_test(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5],moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list = [], soea_list = [[1, 1]], target=[0,2], color = False, if_show_label = False, if_sM = True)
+plotting.plotting_universal_train(wsize = [20, 20, 10], msize = [16, 16], figsize = [8, 5],moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list = [], soea_list = [[1, 1]], target=[0,2], color = False, if_show_label = False, if_sM = True)
