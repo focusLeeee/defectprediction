@@ -1426,6 +1426,7 @@ def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
                   7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
+    multi_marker_dict = {0: '.', 1: '+', 2: '^', 3: '1', 4: '2', 5: '|', 6: '3', 7: 'd'}
     single_marker_dict = {0: 's', 1: 'o', 2: 'x', 3: '*'}
     # 需要注意的是，恰好再测试集和数据集时，记录最优的模型对应的性能都是doc1文件。
     single_files = []
