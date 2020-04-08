@@ -1680,7 +1680,7 @@ def make_validation_trainbest_test(moea_list, op_targets,parameters, target, if_
     save_path = '../results/tables/'
     find_validation_trainbest_test(multi_paths=multi_paths, multi_names=multi_names, parameters=parameters,target=target, save_path=save_path,
                           if_max=if_max, pratios=pratios, best_size = best_size)
-def choose_model(moea_list, op_targets,parameters, target, if_max, train_ratio, pratios, if_split,random_size = 0, best_size = 0,):
+def choose_model(moea_list,op_targets,parameters, target, if_max, train_ratio, pratios, if_split,random_size = 0, best_size = 0,soea_list = []):
     moea_names = []
     for moea in moea_list:
         moea_names.append(dictionaries.get_model_method_name(moea[0]) + '/' + dictionaries.get_moea_name(moea[1]))
@@ -1703,6 +1703,14 @@ def choose_model(moea_list, op_targets,parameters, target, if_max, train_ratio, 
             write_target = op_target_name.replace('nonz', 'NNZ')
             multi_names.append(write_algorithm + '/' + write_target)
     save_path = '../results/tables/'
+
+    if len(soea_list) > 0:
+        for soea in soea_list:
+            soea_name = dictionaries.get_model_method_name(soea[0]) + '/' + dictionaries.get_soea_name(soea[1])
+            multi_paths.append('../results/multi-objective/' + soea_name+'/')
+            multi_names.append(soea_name)
+        
+
     if if_split:
         find_corresponding_model(multi_paths=multi_paths, multi_names=multi_names, parameters=parameters,target=target, save_path=save_path,
                           if_max=if_max, pt = train_ratio, pratios=pratios, random_size=random_size, best_size = best_size)
