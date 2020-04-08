@@ -207,7 +207,7 @@ def plotting_mix_ssmm_test(moea_list, sklearn_list, soea_list, op_targets, targe
 # wsize------label的fontsize，title的fontsize， legend的fontsize
 # 多目标优化算法直接指定
 # moea_list = [[a, b, [c, d]]]--->a是模型，b是优化算法，[c,d]是优化目标
-def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2,if_show_label = True, save_folder = 'universal', if_line = False, if_combine = False, if_show_rtborder = True, rows = 14, columns = 3, if_sM = False, msize = [16, 8], wsize = [14, 14, 14], figsize = [8,4]):
+def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2,if_show_label = True, save_folder = 'universal', if_line = False, if_combine = False, if_show_rtborder = True, rows = 14, columns = 3, if_sM = False, msize = [16, 8], wsize = [14, 14, 14, 14], figsize = [8,4]):
     multi_names = []
     multi_paths = []
 
@@ -281,7 +281,7 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_li
                                       wsize = wsize, msize = msize, figsize = figsize)
 
 
-def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2, if_show_label = True, save_folder = 'universal', if_line = False, if_combine = False, if_show_rtborder = True, rows =10, columns = 3, if_sM = False, msize = [16, 8], wsize = [14, 14, 14], figsize =[8, 4]):
+def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_list = [], color = True, type = 2, if_show_label = True, save_folder = 'universal', if_line = False, if_combine = False, if_show_rtborder = True, rows =10, columns = 3, if_sM = False, msize = [16, 8], wsize = [14, 14, 14, 14], figsize =[8, 4]):
     multi_names = []
     multi_paths = []
 
@@ -357,7 +357,7 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
 
 
 
-def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2, if_show_label = True, save_folder = 'log04', if_sM = False, msize = [16, 8], wsize = [14, 14, 14], figsize = [8,4]):
+def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2, if_show_label = True, save_folder = 'log04', if_sM = False, msize = [16, 8], wsize = [14, 14, 14, 14], figsize = [8,4]):
     multi_names = []
     multi_paths = []
 
@@ -409,7 +409,7 @@ def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2,
                                 single_names=single_names, multi_names=multi_names, save_path=save_path,
                                  if_show_label=if_show_label, wsize = wsize, msize = msize, figsize = figsize)
 
-def plotting_universal_log04_test(moea_list, sklearn_list, soea_list, type = 2, if_show_label = True, save_folder = 'log04', if_sM = False, msize = [16, 8], wsize = [14, 14, 14], figsize = [8, 4]):
+def plotting_universal_log04_test(moea_list, sklearn_list, soea_list, type = 2, if_show_label = True, save_folder = 'log04', if_sM = False, msize = [16, 8], wsize = [14, 14, 14, 14], figsize = [8, 4]):
     multi_names = []
     multi_paths = []
 
