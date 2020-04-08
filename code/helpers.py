@@ -1303,7 +1303,7 @@ def comparison_difcolor_ssmm_train(single_paths, multi_paths, parameters, single
         pass
 
 
-def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, single_names, multi_names, save_path, if_show_label=True):
+def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, single_names, multi_names, save_path, msize, wsize, if_show_label=True):
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
                   7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
@@ -1328,23 +1328,23 @@ def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, singl
                 for j in range(1, fileLists[i]):
                     single_marker = 0
                     plt.figure(figsize=(8, 4))
-                    plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
-                    plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
+                    plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
+                    plt.ylabel(para_name[parameters[1]], fontdict={'size': wsize[0]})
                     for single_file, single_name in zip(single_files, single_names):
                         if single_name == 'CoDE':
                             single_name = 'learning-to-rank'
                         single_values = single_file.loc[fileLists[i][j]].values.astype('float64').tolist()
                         if if_show_label:
                             plt.plot(single_values[parameters[0]], single_values[parameters[1]],
-                                     single_marker_dict[single_marker], label=single_name, markersize=16)
+                                     single_marker_dict[single_marker], label=single_name, markersize=msize[0])
                         else:
                             plt.plot(single_values[parameters[0]], single_values[parameters[1]],
-                                     single_marker_dict[single_marker], markersize=16)
+                                     single_marker_dict[single_marker], markersize=msize[0])
                             print(single_marker_dict[single_marker], single_name)
                         single_marker += 1
-                    plt.title(fileLists[i][j] + '_' + fileLists[i][j], fontdict={'size': 14})
+                    plt.title(fileLists[i][j] + '_' + fileLists[i][j], fontdict={'size': wsize[1]})
                     if if_show_label:
-                        plt.legend(prop={'size': 14})
+                        plt.legend(prop={'size': wsize[2]})
                     plt.savefig(save_path + fileLists[i][j] + '.png')
                     plt.close()
 
@@ -1372,8 +1372,8 @@ def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, singl
                     assert mdatas1[t][i][0] == mdatas2[0][i][0]
 
                 plt.figure(figsize=(8, 4))
-                plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
-                plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
+                plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
+                plt.ylabel(para_name[parameters[1]], fontdict={'size': wsize[0]})
 
                 for mdata1, mdata2, multi_name in zip(mdatas1, mdatas2, multi_names):
                     if multi_name == 'CoDE':
@@ -1381,9 +1381,9 @@ def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, singl
                     m_x = list(map(lambda x: float(x), mdata1[i][1:]))
                     m_y = list(map(lambda x: float(x), mdata2[i][1:]))
                     if if_show_label:
-                        plt.plot(m_x, m_y, multi_marker_dict[multi_marker], label=multi_name, markersize=8)
+                        plt.plot(m_x, m_y, multi_marker_dict[multi_marker], label=multi_name, markersize=msize[1])
                     else:
-                        plt.plot(m_x, m_y, multi_marker_dict[multi_marker], markersize=8)
+                        plt.plot(m_x, m_y, multi_marker_dict[multi_marker], markersize=msize[1])
                         print(multi_marker_dict[multi_marker], multi_name)
                     multi_marker += 1
 
@@ -1395,15 +1395,15 @@ def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, singl
                     single_values = single_file.loc[mdatas2[0][i][0]].values.astype('float64').tolist()
                     if if_show_label:
                         plt.plot(single_values[parameters[0]], single_values[parameters[1]],
-                                 single_marker_dict[single_marker], label=single_name, markersize=16)
+                                 single_marker_dict[single_marker], label=single_name, markersize=msize[0])
                     else:
                         plt.plot(single_values[parameters[0]], single_values[parameters[1]],
-                                 single_marker_dict[single_marker], markersize=16)
+                                 single_marker_dict[single_marker], markersize=msize[0])
                         print(single_marker_dict[single_marker], single_name)
                     single_marker += 1
-                plt.title(mdatas1[0][i][0] + '_' + mdatas1[0][i][0], fontdict={'size': 14})
+                plt.title(mdatas1[0][i][0] + '_' + mdatas1[0][i][0], fontdict={'size': wsize[1]})
                 if if_show_label:
-                    plt.legend(prop={'size': 14})
+                    plt.legend(prop={'size': wsize[2]})
                 plt.savefig(save_path + mdatas1[0][i][0] + '.png')
                 plt.close()
     elif len(parameters) == 3:
@@ -1420,7 +1420,7 @@ def comparison_difmarker_ssmm_train(single_paths, multi_paths, parameters, singl
 '''
 
 
-def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single_names, multi_names, save_path, if_show_label=True):
+def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single_names, multi_names, save_path, wsize, msize, if_show_label=True):
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
                   7: '#000000', 8: '#FF1493', 9: '#CD853F', 10: '#00FF00', 11: '#00008B', 12: '#FF6347'}
@@ -1435,8 +1435,8 @@ def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single
     for i in range(len(fileLists)):
         for j in range(2, len(fileLists[i])):
             plt.figure(figsize=(8, 4))
-            plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
-            plt.ylabel(para_name[parameters[1]], fontdict={'size': 14})
+            plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
+            plt.ylabel(para_name[parameters[1]], fontdict={'size': wsize[0]})
 
             single_marker = 0
             multi_marker = 0
@@ -1448,10 +1448,10 @@ def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single
                 write_name = multi_name.replace('nonz', 'NNZ')
                 if if_show_label:
                     plt.plot(m_file[para_name[parameters[0]]].values, m_file[para_name[parameters[1]]].values,
-                             multi_marker_dict[multi_marker], label=write_name, ms=8)
+                             multi_marker_dict[multi_marker], label=write_name, ms=msize[1])
                 else:
                     plt.plot(m_file[para_name[parameters[0]]].values, m_file[para_name[parameters[1]]].values,
-                             multi_marker_dict[multi_marker], ms=8)
+                             multi_marker_dict[multi_marker], ms=msize[1])
                     print(multi_marker_dict[multi_marker], write_name)
                 multi_marker += 1
 
@@ -1461,17 +1461,17 @@ def comparison_difmarker_ssmm_test(single_paths, multi_paths, parameters, single
                 if if_show_label:
                     plt.plot(single_file.loc[fileLists[i][j], para_name[parameters[0]]], single_file.loc[fileLists[i][j],
                                                                                                          para_name[parameters[1]]],
-                             single_marker_dict[single_marker], label=single_name, ms=16)
+                             single_marker_dict[single_marker], label=single_name, ms=msize[0])
                 else:
                     plt.plot(single_file.loc[fileLists[i][j], para_name[parameters[0]]], single_file.loc[fileLists[i][j],
                                                                                                          para_name[parameters[1]]],
-                             single_marker_dict[single_marker], ms=16)
+                             single_marker_dict[single_marker], ms=msize[0])
                     print(single_marker_dict[single_marker], single_name)
                 single_marker += 1
 
-            plt.title(fileLists[i][j - 1] + '_' + fileLists[i][j], fontdict={'size': 14})
+            plt.title(fileLists[i][j - 1] + '_' + fileLists[i][j], fontdict={'size': wsize[1]})
             if if_show_label:
-                plt.legend(prop={'size': 14})
+                plt.legend(prop={'size': wsize[2]})
             plt.savefig(save_path + fileLists[i][j - 1] + '_' + fileLists[i][j] + '.png')
             plt.close()
 
@@ -2102,7 +2102,7 @@ def combine_difmarker_line_test(single_paths, multi_paths,line_paths, parameters
 
 
     
-def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, multi_names, save_path, if_show_label=True):
+def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, multi_names, save_path, msize, wsize, if_show_label=True):
     parameters = [0, 4]
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
@@ -2126,8 +2126,8 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
             for j in range(1, fileLists[i]):
                 single_marker = 0
                 plt.figure(figsize=(8, 4))
-                plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
-                plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': 14})
+                plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
+                plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': wsize[0]})
                 for single_file, single_name in zip(single_files, single_names):
                     if single_name == 'CoDE':
                         single_name = 'learning-to-rank'
@@ -2137,15 +2137,15 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
                     log_mses = math.log(mses)
                     if if_show_label:
                         plt.plot(fpas, log_mses,
-                                    single_marker_dict[single_marker], label=single_name, markersize=16)
+                                    single_marker_dict[single_marker], label=single_name, markersize=msize[0])
                     else:
                         plt.plot(fpas, log_mses,
-                                    single_marker_dict[single_marker], markersize=16)
+                                    single_marker_dict[single_marker], markersize=msize[0])
                         print(single_marker_dict[single_marker], single_name)
                     single_marker += 1
-                plt.title(fileLists[i][j] + '_' + fileLists[i][j], fontdict={'size': 14})
+                plt.title(fileLists[i][j] + '_' + fileLists[i][j], fontdict={'size': wsize[1]})
                 if if_show_label:
-                    plt.legend(prop={'size': 14})
+                    plt.legend(prop={'size': wsize[2]})
                 plt.savefig(save_path + fileLists[i][j] + '.png')
                 plt.close()
 
@@ -2173,8 +2173,8 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
                 assert mdatas1[t][i][0] == mdatas2[0][i][0]
 
             plt.figure(figsize=(8, 4))
-            plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
-            plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': 14})
+            plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
+            plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': wsize[0]})
 
             for mdata1, mdata2, multi_name in zip(mdatas1, mdatas2, multi_names):
                 m_x = list(map(lambda x: float(x), mdata1[i][1:]))
@@ -2183,9 +2183,9 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
                 if multi_name == 'CoDE':
                         multi_name = 'learning-to-rank'
                 if if_show_label:
-                    plt.plot(m_x, log_m_y, multi_marker_dict[multi_marker], label=multi_name, markersize=8)
+                    plt.plot(m_x, log_m_y, multi_marker_dict[multi_marker], label=multi_name, markersize=msize[1])
                 else:
-                    plt.plot(m_x, log_m_y, multi_marker_dict[multi_marker], markersize=8)
+                    plt.plot(m_x, log_m_y, multi_marker_dict[multi_marker], markersize=msize[1])
                     print(multi_marker_dict[multi_marker], multi_name)
                 multi_marker += 1
 
@@ -2199,14 +2199,14 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
                 mses = single_values[parameters[1]]
                 log_mses = math.log(mses)
                 if if_show_label:
-                    plt.plot(fpas, log_mses, single_marker_dict[single_marker], label=single_name, markersize=16)
+                    plt.plot(fpas, log_mses, single_marker_dict[single_marker], label=single_name, markersize=msize[0])
                 else:
-                    plt.plot(fpas, log_mses, single_marker_dict[single_marker], markersize=16)
+                    plt.plot(fpas, log_mses, single_marker_dict[single_marker], markersize=msize[0])
                     print(single_marker_dict[single_marker], single_name)
                 single_marker += 1
-            plt.title(mdatas1[0][i][0] + '_' + mdatas1[0][i][0], fontdict={'size': 14})
+            plt.title(mdatas1[0][i][0] + '_' + mdatas1[0][i][0], fontdict={'size': wsize[1]})
             if if_show_label:
-                plt.legend(prop={'size': 14})
+                plt.legend(prop={'size': wsize[2]})
             plt.savefig(save_path + mdatas1[0][i][0] + '.png')
             plt.close()
 
@@ -2221,7 +2221,7 @@ def comparison_difmarker_log04_train(single_paths, multi_paths,single_names, mul
 '''
 
 
-def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, multi_names, save_path, if_show_label=True):
+def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, multi_names, save_path, wsize, msize,if_show_label=True):
     parameters = [0, 4]
     para_name = {0: 'FPA', 1: 'AAE', 2: 'numOfnonZero', 3: 'L1', 4: 'MSE'}
     color_dict = {0: '#FF0000', 1: '#008000', 2: '#0000FF', 3: '#FFFF00', 4: '#FFA500', 5: '#800080', 6: '#EE82EE',
@@ -2237,8 +2237,8 @@ def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, mul
     for i in range(len(fileLists)):
         for j in range(2, len(fileLists[i])):
             plt.figure(figsize=(8, 4))
-            plt.xlabel(para_name[parameters[0]], fontdict={'size': 14})
-            plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': 14})
+            plt.xlabel(para_name[parameters[0]], fontdict={'size': wsize[0]})
+            plt.ylabel('log('+para_name[parameters[1]]+')', fontdict={'size': wsize[0]})
 
             single_marker = 0
             multi_marker = 0
@@ -2253,10 +2253,10 @@ def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, mul
                 log_mses = [math.log(tmp) for tmp in mses]
                 if if_show_label:
                     plt.plot(fpas, log_mses,
-                             multi_marker_dict[multi_marker], label=write_name, ms=8)
+                             multi_marker_dict[multi_marker], label=write_name, ms=msize[1])
                 else:
                     plt.plot(fpas, log_mses,
-                             multi_marker_dict[multi_marker], ms=8)
+                             multi_marker_dict[multi_marker], ms=msize[1])
                     print(multi_marker_dict[multi_marker], write_name)
                 multi_marker += 1
 
@@ -2268,14 +2268,14 @@ def comparison_difmarker_log04_test(single_paths, multi_paths, single_names, mul
                 log_mses = math.log(mses)
                 if if_show_label:
                     plt.plot(fpas,log_mses ,
-                             single_marker_dict[single_marker], label=single_name, ms=16)
+                             single_marker_dict[single_marker], label=single_name, ms=msize[0])
                 else:
-                    plt.plot(fpas,log_mses, single_marker_dict[single_marker], ms=16)
+                    plt.plot(fpas,log_mses, single_marker_dict[single_marker], ms=msize[0])
                     print(single_marker_dict[single_marker], single_name)
                 single_marker += 1
 
-            plt.title(fileLists[i][j - 1] + '_' + fileLists[i][j], fontdict={'size': 14})
+            plt.title(fileLists[i][j - 1] + '_' + fileLists[i][j], fontdict={'size': wsize[1]})
             if if_show_label:
-                plt.legend(prop={'size': 14})
+                plt.legend(prop={'size': wsize[2]})
             plt.savefig(save_path + fileLists[i][j - 1] + '_' + fileLists[i][j] + '.png')
             plt.close()
