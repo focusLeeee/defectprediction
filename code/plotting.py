@@ -219,8 +219,8 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_li
         op_target_name = dictionaries.get_target_composition(moea[2])
         multi_paths.append('../results/multi-objective/' +moea_method + '/'+ moea_name + '/' + op_target_name + '/train/')
         if type == 1:
-            write_algorithm = moea_name.replace('nsga2_toZero', 'multi-objective-revised')
-            write_algorithm = write_algorithm.replace('nsga2', 'multi-objective')
+            write_algorithm = moea_name.replace('nsga2_random20p_toZero', 'revised_NSGA_II')
+            write_algorithm = write_algorithm.replace('nsga2', 'NSGA_II')
             # if moea_name == 'nsga2':
             #     write_algorithm = 'multi-objective'
             # elif moea_name == 'nsga2_toZero':
@@ -296,8 +296,8 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
         op_target_name = dictionaries.get_target_composition(moea[2])
         multi_paths.append('../results/multi-objective/' + moea_method + '/'+ moea_name + '/' + op_target_name + '/test/')
         if type == 1:
-            write_algorithm = moea_name.replace('nsga2_toZero', 'multi-objective-revised')
-            write_algorithm = write_algorithm.replace('nsga2', 'multi-objective')
+            write_algorithm = moea_name.replace('nsga2_random20p_toZero', 'revised_NSGA_II')
+            write_algorithm = write_algorithm.replace('nsga2', 'NSGA_II')
             # if moea_name == 'nsga2':
             #     write_algorithm = 'multi-objective'
             # elif moea_name == 'nsga2_toZero':
@@ -374,8 +374,8 @@ def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2,
         op_target_name = dictionaries.get_target_composition(moea[2])
         multi_paths.append('../results/multi-objective/' +model_method+'/'+moea_name + '/' + op_target_name + '/train/')
         if type == 1:
-            write_algorithm = moea_name.replace('nsga2_random20p_toZero', 'multi-objective-revised')
-            write_algorithm = write_algorithm.replace('nsga2', 'multi-objective')
+            write_algorithm = moea_name.replace('nsga2_random20p_toZero', 'revised_NSGA_II')
+            write_algorithm = write_algorithm.replace('nsga2', 'NSGA_II')
             # if moea_name == 'nsga2':
             #     write_algorithm = 'multi-objective'
             # elif moea_name == 'nsga2_toZero':
@@ -426,8 +426,8 @@ def plotting_universal_log04_test(moea_list, sklearn_list, soea_list, type = 2, 
         op_target_name = dictionaries.get_target_composition(moea[2])
         multi_paths.append('../results/multi-objective/' +model_method+'/'+moea_name + '/' + op_target_name + '/test/')
         if type == 1:
-            write_algorithm = moea_name.replace('nsga2_random20p_toZero', 'multi-objective-revised')
-            write_algorithm = write_algorithm.replace('nsga2', 'multi-objective')
+            write_algorithm = moea_name.replace('nsga2_random20p_toZero', 'revised_NSGA_II')
+            write_algorithm = write_algorithm.replace('nsga2', 'NSGA_II')
             # if moea_name == 'nsga2':
             #     write_algorithm = 'multi-objective'
             # elif moea_name == 'nsga2_toZero':
