@@ -238,7 +238,7 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_li
     soea_names = []
     soea_methods = []
     for soea in soea_list:
-        soea_method.append(dictionaries.get_model_method_name(soea[0]))
+        soea_methods.append(dictionaries.get_model_method_name(soea[0]))
         soea_names.append(dictionaries.get_soea_name(soea[1]))
     if if_sM:
         for soea_name, soea_method in zip(soea_names, soea_methods):
@@ -312,7 +312,7 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
     soea_names = []
     soea_methods = []
     for soea in soea_list:
-        soea_method.append(dictionaries.get_model_method_name(soea[0]))
+        soea_methods.append(dictionaries.get_model_method_name(soea[0]))
         soea_names.append(dictionaries.get_soea_name(soea[1]))
     if if_sM:
         for soea_name, soea_method in zip(soea_names, soea_methods):
@@ -389,7 +389,7 @@ def plotting_universal_log04_train(moea_list, sklearn_list, soea_list, type = 2,
     soea_names = []
     soea_methods = []
     for soea in soea_list:
-        soea_method.append(dictionaries.get_model_method_name(soea[0]))
+        soea_methods.append(dictionaries.get_model_method_name(soea[0]))
         soea_names.append(dictionaries.get_soea_name(soea[1]))
     if if_sM:
         for soea_name, soea_method in zip(soea_names, soea_methods):
@@ -440,7 +440,7 @@ def plotting_universal_log04_test(moea_list, sklearn_list, soea_list, type = 2, 
     soea_names = []
     soea_methods = []
     for soea in soea_list:
-        soea_method.append(dictionaries.get_model_method_name(soea[0]))
+        soea_methods.append(dictionaries.get_model_method_name(soea[0]))
         soea_names.append(dictionaries.get_soea_name(soea[1]))
     if if_sM:
         for soea_name, soea_method in zip(soea_names, soea_methods):
