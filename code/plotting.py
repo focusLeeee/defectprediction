@@ -211,10 +211,13 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_li
     multi_names = []
     multi_paths = []
 
+    moea_methods = []
+
     for moea in moea_list:
-        moea_name = dictionaries.get_model_method_name(moea[0])+'/'+dictionaries.get_moea_name(moea[1])
+        moea_method = dictionaries.get_model_method_name(moea[0])
+        moea_name = dictionaries.get_moea_name(moea[1])
         op_target_name = dictionaries.get_target_composition(moea[2])
-        multi_paths.append('../results/multi-objective/' + moea_name + '/' + op_target_name + '/train/')
+        multi_paths.append('../results/multi-objective/' +moea_method + '/'+ moea_name + '/' + op_target_name + '/train/')
         if type == 1:
             write_algorithm = moea_name.replace('nsga2_toZero', 'multi-objective-revised')
             write_algorithm = write_algorithm.replace('nsga2', 'multi-objective')
@@ -225,6 +228,7 @@ def plotting_universal_train(moea_list, sklearn_list, soea_list, target, line_li
         else:
             write_algorithm = moea_name
         write_target = op_target_name.replace('nonz', 'NNZ')
+        moea_methods.append(moea_method)
         multi_names.append(write_algorithm + '/' + write_target)
     
     single_paths = []
@@ -285,10 +289,12 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
     multi_names = []
     multi_paths = []
 
+    moea_methods = []
     for moea in moea_list:
-        moea_name = dictionaries.get_model_method_name(moea[0]) + '/' + dictionaries.get_moea_name(moea[1])
+        moea_method = dictionaries.get_model_method_name(moea[0])
+        moea_name = dictionaries.get_moea_name(moea[1])
         op_target_name = dictionaries.get_target_composition(moea[2])
-        multi_paths.append('../results/multi-objective/' + moea_name + '/' + op_target_name + '/test/')
+        multi_paths.append('../results/multi-objective/' + moea_method + '/'+ moea_name + '/' + op_target_name + '/test/')
         if type == 1:
             write_algorithm = moea_name.replace('nsga2_toZero', 'multi-objective-revised')
             write_algorithm = write_algorithm.replace('nsga2', 'multi-objective')
@@ -299,6 +305,7 @@ def plotting_universal_test(moea_list, sklearn_list, soea_list, target, line_lis
         else:
             write_algorithm = moea_name
         write_target = op_target_name.replace('nonz', 'NNZ')
+        moea_methods.append(moea_method)
         multi_names.append(write_algorithm + '/' + write_target)
         
     single_paths = []
