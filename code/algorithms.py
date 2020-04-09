@@ -133,7 +133,7 @@ def minmaxScaler(x):
     max_value = np.max(x)
     dis = max_value-min_value
     if dis == 0:
-        return 1
+        return np.ones(x.shape, dtype = int)
     else:
         return (x - min_value) / dis
 
