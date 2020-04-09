@@ -133,7 +133,7 @@ def minmaxScaler(x):
     max_value = np.max(x)
     dis = max_value-min_value
     if dis == 0:
-        return x.copy()
+        return 1
     else:
         return (x - min_value) / dis
 
