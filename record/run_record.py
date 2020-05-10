@@ -334,3 +334,15 @@ plotting.plotting_universal_train(type = 1,wsize = [20, 20, 10, 14], msize = [16
 ################################################################################
 #===============================表格结果=========================================
 make_tables.choose_model(moea_list = [[1, 1], [1, 13]], soea_list = [[1,1]],op_targets =[[0, 2, 4]], parameters = [0, 2, 4],train_ratio = 1, target = [0,2, 4], if_max = True,pratios=[4,2,1], random_size = 1, if_split = False)
+
+
+#================================================================================
+#=========================绘图之毕业论文用图==================================
+#================================绘图========================================
+#=======================================绘图nsga2/nsga2-random20ptozero/code/04=====
+plotting.plotting_universal_log04_test(type = 1,wsize = [20, 30, 10, 20], msize = [16, 16], figsize = [10, 6],if_show_label = False,moea_list=[[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list=[], soea_list=[[1,1]], if_sM = True)
+
+#=======================================绘图nsga2/nsga2-random20ptozero/code 无标签/02=====
+
+plotting.plotting_universal_test(type = 1,wsize = [20, 30, 10, 20], msize = [16, 16], figsize = [8, 5],moea_list = [[1, 13,[0,2,4]], [1, 1,[0,2,4]]], sklearn_list = [], soea_list = [[1, 1]], target=[0,2], color = False, if_show_label = False, if_sM = True)
+
