@@ -15,6 +15,31 @@ def linear_predict(X, parameters):
     # 返回n*m矩阵, 其中每一列是一个对应染色体的预测y值
     return np.dot(new_X, np.transpose(parameters)).astype(float)
 
+def get_logistic_predict(X, parameters):
+    new_X = np.ones((X.shape[0], X.shape[1] + 1))
+    new_X[:, 0:-1] = X
+    y = np.dot(new_X, np.transpose(parameters)).astype(float)
+    new_y = 1 / (1 + np.exp(-x))
+    if new_y >= 0.5:
+        new_y = 1
+    else:
+        new_y = -1
+    return np.array(new_y)
+
+
+def logistic_predict(X, parameters):
+    if parameters.ndim == 1:
+        return get_logistic_predict(X, parameters)
+    predValues = []
+    for i in range(parameters.shape[0]):
+        param = parameters[i]
+        predvalue = get_logistic_predict(X, param)
+        predvalue = predvalue.flatten()
+        predvalue = predvalue.tolist()
+        predValues.append(predvalue)
+    return np.array(predValues).T
+
+
 # 输入：X(n, d), parameters,(1, d)
 # d 特征的数量, n样本个数, m种群大小
 # 输出：predValue:n*1

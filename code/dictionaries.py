@@ -21,7 +21,7 @@ def get_soea_name(num):
     return algorithm_dict[num]
 
 def get_model_method_name(num):
-    model_dict = {1: 'linear', 2: 'BPNN', 3:'NN', 4:'MLP', 5:'mlp3', 6: 'mlp5'}
+    model_dict = {1: 'linear', 2: 'BPNN', 3:'NN', 4:'MLP', 5:'mlp3', 6: 'mlp5', 7:'logistic'}
     return model_dict[num]
 
 def get_targets_name(num):
